@@ -3,8 +3,9 @@ import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StyledInput from "../components/StyledInput";
 import StyledText from "../components/StyledText";
-import StyledButton from "../components/StyledButton";  
+import StyledButton from "../components/StyledButton";
 import Colors from "../constants/colors";
+import { API_URL } from "@env"
 
 const phoneAuth = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -12,22 +13,41 @@ const phoneAuth = () => {
   const [cooldown, setCooldown] = useState(0);
   const [sent, setSent] = useState(false);
 
-  const handleSendCode = () => {
-    // Implement sending the code here...
+  const handleSendCode = async () => {
+    const requestBody = {
+      "phoneNumber": `+961${phoneNumber}`
+    };
 
-    setSent(true);
-    // Start the cooldown timer
-    setCooldown(60);
-    const countdown = setInterval(() => {
-      setCooldown(prevCooldown => {
-        if (prevCooldown <= 1) {
-          clearInterval(countdown);
-          setSent(false);
-          return 0;
-        }
-        return prevCooldown - 1;
+    try {
+        const response = await fetch(`${API_URL}/twilio/send-code`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
       });
-    }, 1000);
+
+      if (!response.ok) {
+        throw new Error("Failed to send code.");
+      }
+
+      const responseData = await response.json();
+      console.log(responseData);
+      setSent(true);
+      setCooldown(60);
+      const countdown = setInterval(() => {
+        setCooldown((prevCooldown) => {
+          if (prevCooldown <= 1) {
+            clearInterval(countdown);
+            setSent(false);
+            return 0;
+          }
+          return prevCooldown - 1;
+        });
+      }, 1000);
+    } catch (error) {
+      console.error("Error sending code:", error.message);
+    }
   };
 
   return (
@@ -60,7 +80,7 @@ const phoneAuth = () => {
         size="medium"
         text={sent ? `${cooldown}s` : "Send code"}
         onPress={sent ? null : handleSendCode}
-        style={sent ? styles.disabled : { marginTop : 20 }}
+        style={sent ? styles.disabled : { marginTop: 20 }}
         textStyle={sent ? { color: Colors.description } : {}}
         disabled={sent}
       />
@@ -82,7 +102,7 @@ const styles = StyleSheet.create({
   disabled: {
     marginTop: 20,
     backgroundColor: Colors.lightGray,
-  }
+  },
 });
 
 export default phoneAuth;
