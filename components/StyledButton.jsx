@@ -20,26 +20,28 @@ const SIZE = {
   },
 };
 
-const StyledButton = ({ size = 'medium', text, onPress }) => {
+const StyledButton = ({ size = 'medium', text, onPress, style, textStyle, outlined = false, disabled }) => {
   const currentSize = SIZE[size];
   const styles = StyleSheet.create({
     button: {
       width: currentSize.width,
       height: currentSize.height,
-      backgroundColor: Colors.background,
+      backgroundColor: outlined ? Colors.background : Colors.primary,
+      borderColor: outlined ? Colors.primary : Colors.background,
+      borderWidth: outlined ? 1 : 0,
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 5,
     },
     buttonText: {
       fontSize: currentSize.fontSize,
-      color: Colors.primary,
+      color: outlined ? Colors.primary : Colors.background,
     },
   });
 
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonText}>{text}</Text>
+    <TouchableOpacity style={[styles.button, style]} onPress={onPress} disabled={disabled}>
+      <Text style={[styles.buttonText, textStyle]}>{text}</Text>
     </TouchableOpacity>
   );
 };

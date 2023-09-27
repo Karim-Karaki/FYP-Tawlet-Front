@@ -8,6 +8,7 @@ const StyledInput = ({
   type = "text",
   value,
   onChange,
+  style
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   let keyboardType = "default";
@@ -28,7 +29,7 @@ const StyledInput = ({
 
   return (
     <TextInput
-      style={[styles[size], isFocused ? styles.focused : styles.unfocused]}
+      style={[styles[size], isFocused ? styles.focused : styles.unfocused, style]}
       placeholder={placeholder}
       keyboardType={keyboardType}
       value={value}
@@ -53,14 +54,14 @@ const styles = StyleSheet.create({
     width: 300,
   },
   focused: {
-    padding: 5,
+    padding: 10,
     borderRadius: 5,
     backgroundColor: Colors.white,
     borderColor: Colors.primary,
     borderWidth: 1,
   },
   unfocused: {
-    padding: 5,
+    padding: 10,
     borderRadius: 5,
     backgroundColor: Colors.lightGray,
     color: Colors.title,

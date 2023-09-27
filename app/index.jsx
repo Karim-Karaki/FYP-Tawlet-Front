@@ -38,7 +38,7 @@ const Page = () => {
             out the best of what Lebanese restaurants have to offer!
           </StyledText>
         </View>
-        <StyledButton size="big" text="Get started" onPress={goToPhoneAuth} />
+        <StyledButton outlined size="big" text="Get started" onPress={goToPhoneAuth} />
       </View>
     </SafeAreaView>
   );
