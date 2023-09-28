@@ -5,7 +5,8 @@ import StyledInput from "../components/StyledInput";
 import StyledText from "../components/StyledText";
 import StyledButton from "../components/StyledButton";
 import Colors from "../constants/colors";
-import { API_URL } from "@env"
+import { API_URL } from "@env";
+import axios from "axios";
 
 const phoneAuth = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -15,24 +16,16 @@ const phoneAuth = () => {
 
   const handleSendCode = async () => {
     const requestBody = {
-      "phoneNumber": `+961${phoneNumber}`
+      phoneNumber: `+961${phoneNumber}`,
     };
 
     try {
-        const response = await fetch(`${API_URL}/twilio/send-code`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
+      const response = await axios.post(
+        `http://${API_URL}/twilio/send-code`,
+        requestBody
+      );
 
-      if (!response.ok) {
-        throw new Error("Failed to send code.");
-      }
-
-      const responseData = await response.json();
-      console.log(responseData);
+      console.log(response.data);
       setSent(true);
       setCooldown(60);
       const countdown = setInterval(() => {
