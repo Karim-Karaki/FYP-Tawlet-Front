@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import StyledInput from "../components/StyledInput";
 import StyledText from "../components/StyledText";
 import StyledButton from "../components/StyledButton";
@@ -12,8 +13,8 @@ const phoneAuth = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [timer, setTimer] = useState(null);
   const [cooldown, setCooldown] = useState(0);
-  const [isOnCooldown, setIsOnCooldown] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [isOnCooldown, setIsOnCooldown] = useState(true);
+  const [sent, setSent] = useState(true);
   const [code, setCode] = useState("");
   const [invalidCode, setInvalidCode] = useState(false);
 
@@ -72,61 +73,82 @@ const phoneAuth = () => {
   };
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        paddingHorizontal: 20,
-      }}
-    >
-      <View style={styles.textContainer}>
-        <StyledText style={styles.title}>
-          Enter your phone number to get started
-        </StyledText>
-        <StyledText style={styles.description}>
-          We'll send you a verification code on WhatsApp
-        </StyledText>
-      </View>
+    <KeyboardAvoidingScrollView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, paddingHorizontal: 20 }}>
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: "https://placehold.co/300.png" }}
+            style={styles.imageStyle}
+          />
+        </View>
 
-      <StyledInput
-        size="big"
-        placeholder="Phone Number"
-        type="phonenumber"
-        value={phoneNumber}
-        onChange={setPhoneNumber}
-      />
-      {sent && (
-        <StyledInput
-          size="big"
-          placeholder="Code"
-          type="number"
-          value={code}
-          onChange={setCode}
-          style={invalidCode ? { marginVertical:10, borderColor: "#FF0000" } : { marginVertical: 10 }}
-        />
-      )}
-      {invalidCode && (
-        <StyledText style={{ color: "#FF0000" }}>Invalid code</StyledText>
-      )}
-      <View style={styles.buttonContainer}>
-        <StyledButton
-          size="medium"
-          text={isOnCooldown ? `${cooldown}s` : "Send code"}
-          onPress={isOnCooldown ? null : handleSendCode}
-          style={[isOnCooldown ? styles.disabled : {}, { marginRight: 10 }]}
-          textStyle={isOnCooldown ? { color: Colors.description } : {}}
-          disabled={isOnCooldown}
-        />
-        {sent && (
+        <View style={{ flex: 1 }}>
+          <View style={styles.textContainer}>
+            <StyledText bold style={styles.title}>
+              Let's get you a table!
+            </StyledText>
+            <StyledText style={styles.description}>
+              Can we get your number? Don't worry, we're not asking you out. We
+              just need to verify your identity.
+            </StyledText>
+          </View>
+
+          <StyledInput
+            size="big"
+            placeholder="Phone Number"
+            type="phonenumber"
+            value={phoneNumber}
+            onChange={setPhoneNumber}
+            style={{ alignSelf: "center" }}
+          />
+          {sent && (
+            <StyledInput
+              size="big"
+              placeholder="Code"
+              type="number"
+              value={code}
+              onChange={setCode}
+              style={
+                invalidCode
+                  ? {
+                      alignSelf: "center",
+                      marginVertical: 10,
+                      borderColor: "#FF0000",
+                    }
+                  : { alignSelf: "center", marginVertical: 10 }
+              }
+            />
+          )}
+          {invalidCode && (
+            <StyledText style={[styles.errorText, { color: "#FF0000" }]}>
+              Invalid code
+            </StyledText>
+          )}
+
           <StyledButton
             size="medium"
-            text="Submit"
-            onPress={handleVerifyCode}
+            text={isOnCooldown ? `${cooldown}s` : "Send code"}
+            onPress={isOnCooldown ? null : handleSendCode}
+            style={
+              isOnCooldown
+                ? styles.disabled
+                : { alignSelf: "center", marginTop: 10 }
+            }
+            textStyle={isOnCooldown ? { color: Colors.description } : {}}
+            disabled={isOnCooldown}
           />
-        )}
-      </View>
-    </SafeAreaView>
+        </View>
+        <View style={styles.submitButtonContainer}>
+          {sent && (
+            <StyledButton
+              size="medium"
+              text="Submit"
+              onPress={handleVerifyCode}
+            />
+          )}
+        </View>
+      </SafeAreaView>
+    </KeyboardAvoidingScrollView>
   );
 };
 
@@ -138,8 +160,8 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 14,
     marginVertical: 10,
-    textAlign: "center",
     color: Colors.description,
+    marginBottom: 20,
   },
   buttonContainer: {
     flexDirection: "row",
@@ -147,7 +169,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   disabled: {
-    backgroundColor: Colors.lightGray,
+    backgroundColor: Colors.lighterGray,
+    alignSelf: "center",
+  },
+  imageContainer: {
+    marginTop: 20,
+    alignSelf: "center",
+    marginBottom: 100,
+  },
+  imageStyle: {
+    width: 200,
+    height: 200,
+    resizeMode: "cover",
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  submitButtonContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  errorText: {
+    alignSelf: "flex-start",
+    marginLeft: 5,
   },
 });
 

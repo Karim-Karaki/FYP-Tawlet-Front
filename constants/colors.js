@@ -1,7 +1,8 @@
 export default {
   title: "#000000", 
-  description: "#808080", 
-  lightGray: "#D3D3D3",
+  description: "#A5A5A5", 
+  lightGray: "#A5A5A5",
+  lighterGray: "#E7E7E7",
   background: "#FFFFFF", 
-  primary: "#FF4500" 
+  primary: "#FA8072",
 };

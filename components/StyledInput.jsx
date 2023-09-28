@@ -36,6 +36,7 @@ const StyledInput = ({
       onChangeText={onChange}
       onFocus={handleFocus}
       onBlur={handleBlur}
+      placeholderTextColor={Colors.lightGray}
     />
   );
 };
@@ -58,12 +59,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: Colors.white,
     borderColor: Colors.primary,
+    color: Colors.title,
     borderWidth: 1,
   },
   unfocused: {
     padding: 10,
     borderRadius: 5,
-    backgroundColor: Colors.lightGray,
+    backgroundColor: Colors.lighterGray,
     color: Colors.title,
   },
 });
