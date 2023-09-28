@@ -8,15 +8,18 @@ import StyledButton from "../components/StyledButton";
 import Colors from "../constants/colors";
 import { API_URL } from "@env";
 import axios from "axios";
+import { useRouter } from "expo-router";
 
 const phoneAuth = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [timer, setTimer] = useState(null);
   const [cooldown, setCooldown] = useState(0);
-  const [isOnCooldown, setIsOnCooldown] = useState(true);
-  const [sent, setSent] = useState(true);
+  const [isOnCooldown, setIsOnCooldown] = useState(false);
+  const [sent, setSent] = useState(false);
   const [code, setCode] = useState("");
   const [invalidCode, setInvalidCode] = useState(false);
+
+  const router = useRouter();
 
   const handleSendCode = async () => {
     const requestBody = {
@@ -61,8 +64,8 @@ const phoneAuth = () => {
       );
 
       if (response.data.verified) {
-        console.log("Code verified successfully!");
         setInvalidCode(false);
+        router.replace("/profileCreation")
       } else {
         console.log("Invalid code provided.");
         setInvalidCode(true);
@@ -73,7 +76,7 @@ const phoneAuth = () => {
   };
 
   return (
-    <KeyboardAvoidingScrollView style={{ flex: 1 }}>
+    <KeyboardAvoidingScrollView>
       <SafeAreaView style={{ flex: 1, paddingHorizontal: 20 }}>
         <View style={styles.imageContainer}>
           <Image
@@ -81,8 +84,7 @@ const phoneAuth = () => {
             style={styles.imageStyle}
           />
         </View>
-
-        <View style={{ flex: 1 }}>
+        <View style={styles.middleContainer}>
           <View style={styles.textContainer}>
             <StyledText bold style={styles.title}>
               Let's get you a table!
@@ -92,60 +94,62 @@ const phoneAuth = () => {
               just need to verify your identity.
             </StyledText>
           </View>
-
-          <StyledInput
-            size="big"
-            placeholder="Phone Number"
-            type="phonenumber"
-            value={phoneNumber}
-            onChange={setPhoneNumber}
-            style={{ alignSelf: "center" }}
-          />
-          {sent && (
+          <View style={styles.inputContainer}>
             <StyledInput
               size="big"
-              placeholder="Code"
-              type="number"
-              value={code}
-              onChange={setCode}
-              style={
-                invalidCode
-                  ? {
-                      alignSelf: "center",
-                      marginVertical: 10,
-                      borderColor: "#FF0000",
-                    }
-                  : { alignSelf: "center", marginVertical: 10 }
-              }
+              placeholder="Phone Number"
+              type="phonenumber"
+              value={phoneNumber}
+              onChange={setPhoneNumber}
+              style={{ alignSelf: "center" }}
             />
-          )}
-          {invalidCode && (
-            <StyledText style={[styles.errorText, { color: "#FF0000" }]}>
-              Invalid code
-            </StyledText>
-          )}
+            {sent && (
+              <StyledInput
+                size="big"
+                placeholder="Code"
+                type="number"
+                value={code}
+                onChange={setCode}
+                style={
+                  invalidCode
+                    ? {
+                        alignSelf: "center",
+                        marginVertical: 10,
+                        borderColor: "#FF0000",
+                      }
+                    : { alignSelf: "center", marginVertical: 10 }
+                }
+              />
+            )}
+            {invalidCode && (
+              <StyledText style={[styles.errorText, { color: "#FF0000" }]}>
+                Invalid code
+              </StyledText>
+            )}
 
-          <StyledButton
-            size="medium"
-            text={isOnCooldown ? `${cooldown}s` : "Send code"}
-            onPress={isOnCooldown ? null : handleSendCode}
-            style={
-              isOnCooldown
-                ? styles.disabled
-                : { alignSelf: "center", marginTop: 10 }
-            }
-            textStyle={isOnCooldown ? { color: Colors.description } : {}}
-            disabled={isOnCooldown}
-          />
-        </View>
-        <View style={styles.submitButtonContainer}>
-          {sent && (
             <StyledButton
               size="medium"
-              text="Submit"
-              onPress={handleVerifyCode}
+              text={isOnCooldown ? `${cooldown}s` : "Send code"}
+              onPress={isOnCooldown ? null : handleSendCode}
+              style={
+                isOnCooldown
+                  ? styles.disabled
+                  : { alignSelf: "center", marginTop: 10 }
+              }
+              textStyle={isOnCooldown ? { color: Colors.description } : {}}
+              disabled={isOnCooldown}
             />
-          )}
+
+            <View style={styles.submitButtonContainer}>
+              {sent && (
+                <StyledButton
+                  size="medium"
+                  text="Submit"
+                  onPress={handleVerifyCode}
+                />
+              )}
+            </View>
+          </View>
         </View>
       </SafeAreaView>
     </KeyboardAvoidingScrollView>
@@ -188,14 +192,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   submitButtonContainer: {
-    flex: 1,
-    justifyContent: "flex-end",
     alignItems: "center",
-    marginBottom: 20,
+    marginTop: 100,
   },
   errorText: {
-    alignSelf: "flex-start",
-    marginLeft: 5,
+    alignSelf: "center",
+    marginBottom: 10,
   },
 });
 

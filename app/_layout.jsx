@@ -51,6 +51,7 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="phoneAuth" options={{ headerShown: false }} />
+        <Stack.Screen name="profileCreation" options={{ headerShown: false }} />
       </Stack>
   );
 }
