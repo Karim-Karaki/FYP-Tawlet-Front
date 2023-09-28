@@ -12,7 +12,10 @@ const phoneAuth = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [timer, setTimer] = useState(null);
   const [cooldown, setCooldown] = useState(0);
+  const [isOnCooldown, setIsOnCooldown] = useState(false);
   const [sent, setSent] = useState(false);
+  const [code, setCode] = useState("");
+  const [invalidCode, setInvalidCode] = useState(false);
 
   const handleSendCode = async () => {
     const requestBody = {
@@ -26,18 +29,43 @@ const phoneAuth = () => {
       );
 
       console.log(response.data);
+      setIsOnCooldown(true);
       setSent(true);
       setCooldown(60);
       const countdown = setInterval(() => {
         setCooldown((prevCooldown) => {
           if (prevCooldown <= 1) {
             clearInterval(countdown);
-            setSent(false);
+            setIsOnCooldown(false);
             return 0;
           }
           return prevCooldown - 1;
         });
       }, 1000);
+    } catch (error) {
+      console.error("Error sending code:", error.message);
+    }
+  };
+
+  const handleVerifyCode = async () => {
+    const requestBody = {
+      phoneNumber: `+961${phoneNumber}`,
+      code: code,
+    };
+
+    try {
+      const response = await axios.post(
+        `http://${API_URL}/twilio/verify-code`,
+        requestBody
+      );
+
+      if (response.data.verified) {
+        console.log("Code verified successfully!");
+        setInvalidCode(false);
+      } else {
+        console.log("Invalid code provided.");
+        setInvalidCode(true);
+      }
     } catch (error) {
       console.error("Error sending code:", error.message);
     }
@@ -68,15 +96,36 @@ const phoneAuth = () => {
         value={phoneNumber}
         onChange={setPhoneNumber}
       />
-
-      <StyledButton
-        size="medium"
-        text={sent ? `${cooldown}s` : "Send code"}
-        onPress={sent ? null : handleSendCode}
-        style={sent ? styles.disabled : { marginTop: 20 }}
-        textStyle={sent ? { color: Colors.description } : {}}
-        disabled={sent}
-      />
+      {sent && (
+        <StyledInput
+          size="big"
+          placeholder="Code"
+          type="number"
+          value={code}
+          onChange={setCode}
+          style={invalidCode ? { marginVertical:10, borderColor: "#FF0000" } : { marginVertical: 10 }}
+        />
+      )}
+      {invalidCode && (
+        <StyledText style={{ color: "#FF0000" }}>Invalid code</StyledText>
+      )}
+      <View style={styles.buttonContainer}>
+        <StyledButton
+          size="medium"
+          text={isOnCooldown ? `${cooldown}s` : "Send code"}
+          onPress={isOnCooldown ? null : handleSendCode}
+          style={[isOnCooldown ? styles.disabled : {}, { marginRight: 10 }]}
+          textStyle={isOnCooldown ? { color: Colors.description } : {}}
+          disabled={isOnCooldown}
+        />
+        {sent && (
+          <StyledButton
+            size="medium"
+            text="Submit"
+            onPress={handleVerifyCode}
+          />
+        )}
+      </View>
     </SafeAreaView>
   );
 };
@@ -92,8 +141,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: Colors.description,
   },
-  disabled: {
+  buttonContainer: {
+    flexDirection: "row",
     marginTop: 20,
+    alignItems: "center",
+  },
+  disabled: {
     backgroundColor: Colors.lightGray,
   },
 });
