@@ -19,14 +19,46 @@ const profileCreation = () => {
   const [email, setEmail] = useState("");
   const [emptyName, setEmptyName] = useState(false);
   const [emptyEmail, setEmptyEmail] = useState(false);
-  const [date, setDate] = useState(new Date(1022198400000));
+  const [emailError, setEmailError] = useState('');
+  const [date, setDate] = useState("24/05/2002");
 
-  const handleSignUp = () => {
+  const isValidEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const handleSignUp = async () => {
+    let isValid = true;
     if (!name) {
       setEmptyName(true);
     }
     if (!email) {
       setEmptyEmail(true);
+      setEmailError('Email cannot be empty');
+      isValid = false; 
+    } else if (!isValidEmail(email)) {
+      setEmailError('Please enter a valid email');
+      setEmptyEmail(true);
+      isValid = false; 
+    }
+
+    if (!isValid) {
+      return; 
+    }
+    const requestBody = {
+      phoneNumber: `+961${phoneNumber}`,
+      name: name,
+      email: email,
+      dob: date
+    };
+    try {
+      const response = await axios.post(
+        `http://${API_URL}/twilio/register-login`,
+        requestBody
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error creating profile:", error.message);
     }
   };
 
@@ -77,12 +109,12 @@ const profileCreation = () => {
         />
         {emptyEmail && (
               <StyledText style={[styles.errorText, { color: "#FF0000" }]}>
-                Missing email
+                {emailError || 'Missing email'}
               </StyledText>
             )}
         <StyledButton
           size="medium"
-          text={date.toLocaleDateString()}
+          text={date}
           onPress={null}
           style={[{ marginBottom: 10 }, styles.disabled]}
           textStyle={{ color: Colors.description }}
