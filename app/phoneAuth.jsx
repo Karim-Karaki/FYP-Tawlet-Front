@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
@@ -18,10 +18,17 @@ const phoneAuth = () => {
   const [sent, setSent] = useState(false);
   const [code, setCode] = useState("");
   const [invalidCode, setInvalidCode] = useState(false);
+  const [phoneNumberError, setPhoneNumberError] = useState(false);
+  const [emptyCode, setEmptyCodeError] = useState(false);
 
   const router = useRouter();
 
   const handleSendCode = async () => {
+    if (!phoneNumber) {
+      setPhoneNumberError(true); 
+      return; 
+    }
+    setPhoneNumberError(false);
     const requestBody = {
       phoneNumber: `+961${phoneNumber}`,
     };
@@ -31,7 +38,6 @@ const phoneAuth = () => {
         `http://${API_URL}/twilio/send-code`,
         requestBody
       );
-
       console.log(response.data);
       setIsOnCooldown(true);
       setSent(true);
@@ -52,6 +58,11 @@ const phoneAuth = () => {
   };
 
   const handleVerifyCode = async () => {
+    if (!code) {
+      setEmptyCodeError(true); 
+      return; 
+    }
+    setEmptyCodeError(false);
     const requestBody = {
       phoneNumber: `+961${phoneNumber}`,
       code: code,
@@ -65,7 +76,7 @@ const phoneAuth = () => {
 
       if (response.data.verified) {
         setInvalidCode(false);
-        router.replace("/profileCreation")
+        router.replace({ pathname: "/profileCreation", params: { phoneNumber : phoneNumber }} )
       } else {
         console.log("Invalid code provided.");
         setInvalidCode(true);
@@ -95,14 +106,23 @@ const phoneAuth = () => {
             </StyledText>
           </View>
           <View style={styles.inputContainer}>
-            <StyledInput
+          <StyledInput
               size="big"
               placeholder="Phone Number"
               type="phonenumber"
               value={phoneNumber}
               onChange={setPhoneNumber}
-              style={{ alignSelf: "center" }}
+              style={[
+                { alignSelf: "center", marginVertical: 10 },
+                phoneNumberError ? styles.inputError : null, 
+              ]}
+              length={8}
             />
+            {phoneNumberError && (
+              <StyledText style={[styles.errorText, { color: "#FF0000" }]}>
+                Please enter a phone number
+              </StyledText>
+            )}
             {sent && (
               <StyledInput
                 size="big"
@@ -110,15 +130,12 @@ const phoneAuth = () => {
                 type="number"
                 value={code}
                 onChange={setCode}
-                style={
-                  invalidCode
-                    ? {
-                        alignSelf: "center",
-                        marginVertical: 10,
-                        borderColor: "#FF0000",
-                      }
-                    : { alignSelf: "center", marginVertical: 10 }
-                }
+                style={[ { alignSelf: "center", marginVertical: 10},
+                  invalidCode || emptyCode
+                    ? styles.inputError
+                    : null
+                ]}
+                length={6}
               />
             )}
             {invalidCode && (
@@ -126,7 +143,11 @@ const phoneAuth = () => {
                 Invalid code
               </StyledText>
             )}
-
+            {emptyCode && (
+              <StyledText style={[styles.errorText, { color: "#FF0000" }]}>
+                Missing code
+              </StyledText>
+            )}
             <StyledButton
               size="medium"
               text={isOnCooldown ? `${cooldown}s` : "Send code"}
@@ -198,6 +219,10 @@ const styles = StyleSheet.create({
   errorText: {
     alignSelf: "center",
     marginBottom: 10,
+  },
+  inputError: {
+    borderColor: "#FF0000",
+    borderWidth: 1,
   },
 });
 

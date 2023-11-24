@@ -8,6 +8,7 @@ const StyledInput = ({
   type = "text",
   value,
   onChange,
+  length,
   style
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -37,6 +38,7 @@ const StyledInput = ({
       onFocus={handleFocus}
       onBlur={handleBlur}
       placeholderTextColor={Colors.lightGray}
+      maxLength={length}
     />
   );
 };
