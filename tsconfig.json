@@ -8,5 +8,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "constants/colors.js", "components/StyledText.jsx", "app/index.jsx", "app/_layout.jsx", "components/BottomSheet.jsx", "components/CustomHeader.jsx"  ]
+, "constants/colors.js", "components/StyledText.jsx", "app/index.jsx", "app/_layout.jsx", "components/BottomSheet.jsx", "components/CustomHeader.jsx", "app/main/(homeStack)/(modals)/location-search.jsx"  ]
 }

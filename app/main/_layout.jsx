@@ -19,17 +19,15 @@ function Layout() {
         },
       }}
     >
-      
         <Tabs.Screen
-          name="Home"
+          name="(homeStack)"
           options={{
-            href: "/main/Home",
+            href: "/main/(homeStack)/Home",
             tabBarIcon: ({ color, size }) => (
               <FontAwesome5 name="home" size={24} color={color} />
             ),
           }}
         />
-     
       <Tabs.Screen
         name="Browse"
         options={{

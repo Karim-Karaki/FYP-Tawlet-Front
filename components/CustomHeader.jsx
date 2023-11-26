@@ -4,7 +4,6 @@ import { Ionicons } from '@expo/vector-icons';
 import colors from '../constants/colors';
 import { Link } from 'expo-router';
 import BottomSheet from './BottomSheet';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 const SearchBar = () => (
   <View style={styles.searchContainer}>
@@ -15,7 +14,7 @@ const SearchBar = () => (
       </View>
       <Link href={'/(modal)/filter'} asChild>
         <TouchableOpacity style={styles.optionButton}>
-          <Ionicons name="options-outline" size={20} color={colors.primary} />
+          <Ionicons name="options-outline" size={32} color={colors.primary} />
         </TouchableOpacity>
       </Link>
     </View>
@@ -35,21 +34,22 @@ const CustomHeader = () => {
 
       <View style={styles.container}>
         <TouchableOpacity onPress={openModal}>
-          <Image style={styles.bike} source={require('../assets/images/pin.png')} />
+          <Ionicons name="location-outline" size={20} color={colors.medium} />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.titleContainer} onPress={openModal}>
-          <Text style={styles.title}>Dining Area</Text>
+          <Text style={styles.title}>Taking reservations now onwards</Text>
           <View style={styles.locationName}>
             <Text style={styles.subtitle}>Beirut</Text>
             <Ionicons name="chevron-down" size={20} color={colors.primary} />
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.profileButton}>
+        {/* <TouchableOpacity style={styles.profileButton}>
           <Ionicons name="person-outline" size={20} color={colors.primary} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
+      {/* <SearchBar /> */}
     </SafeAreaView>
   );
 };

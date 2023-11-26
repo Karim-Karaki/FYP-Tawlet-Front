@@ -4,12 +4,19 @@ import { BottomSheetBackdrop, BottomSheetModal, useBottomSheetModal } from '@gor
 import colors from '../constants/colors';
 import { Link } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 
 const BottomSheet = forwardRef((props, ref) => {
-  const snapPoints = useMemo(() => ['50%'], []);
+  const snapPoints = useMemo(() => ['40%'], []);
   const renderBackdrop = useCallback((props) => <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, []);
   const { dismiss } = useBottomSheetModal();
+  const router = useRouter();
+
+  const handleDismissal = () => {
+    dismiss();
+    router.push("/main/(modals)/location-search")
+  }
 
   return (
     <BottomSheetModal
@@ -20,31 +27,31 @@ const BottomSheet = forwardRef((props, ref) => {
       snapPoints={snapPoints}
       backdropComponent={renderBackdrop}>
       <View style={styles.contentContainer}>
-        <View style={styles.toggle}>
+        {/* <View style={styles.toggle}>
           <TouchableOpacity style={styles.toggleActive}>
             <Text style={styles.activeText}>Delivery</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.toggleInactive}>
             <Text style={styles.inactiveText}>Pickup</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <Text style={styles.subheader}>Your Location</Text>
-        <Link href={'/(modal)/location-search'} asChild>
-          <TouchableOpacity>
+  
+          <TouchableOpacity onPress={handleDismissal}>
             <View style={styles.item}>
               <Ionicons name="location-outline" size={20} color={colors.medium} />
               <Text style={{ flex: 1 }}>Current location</Text>
               <Ionicons name="chevron-forward" size={20} color={colors.primary} />
             </View>
           </TouchableOpacity>
-        </Link>
+    
 
-        <Text style={styles.subheader}>Arrival time</Text>
+        <Text style={styles.subheader}>Reservation time</Text>
         <TouchableOpacity>
           <View style={styles.item}>
             <Ionicons name="stopwatch-outline" size={20} color={colors.medium} />
-            <Text style={{ flex: 1 }}>Now</Text>
+            <Text style={{ flex: 1 }}>Now onwards</Text>
             <Ionicons name="chevron-forward" size={20} color={colors.primary} />
           </View>
         </TouchableOpacity>
