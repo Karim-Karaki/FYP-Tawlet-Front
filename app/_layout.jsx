@@ -48,10 +48,11 @@ export default function RootLayout() {
 function RootLayoutNav() {
 
   return (
-      <Stack>
+      <Stack screenOptions={{headerShown: false}}>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="phoneAuth" options={{ headerShown: false }} />
         <Stack.Screen name="profileCreation" options={{ headerShown: false }} />
+        <Stack.Screen name="main" options={{headerShown:false}}/>
       </Stack>
   );
 }

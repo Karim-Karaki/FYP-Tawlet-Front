@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextInput, StyleSheet } from "react-native";
-import Colors from "../constants/colors";
+import colors from "../constants/colors";
 
 const StyledInput = ({
   size = "medium",
@@ -37,7 +37,7 @@ const StyledInput = ({
       onChangeText={onChange}
       onFocus={handleFocus}
       onBlur={handleBlur}
-      placeholderTextColor={Colors.lightGray}
+      placeholderTextColor={colors.medium}
       maxLength={length}
     />
   );
@@ -58,17 +58,29 @@ const styles = StyleSheet.create({
   },
   focused: {
     padding: 10,
-    borderRadius: 5,
-    backgroundColor: Colors.white,
-    borderColor: Colors.primary,
-    color: Colors.title,
+    paddingHorizontal: 20,
+    borderRadius: 40,
+    backgroundColor: colors.background,
+    borderColor: colors.background,
+    color: colors.mediumDark,
     borderWidth: 1,
+    shadowColor: "#000", // black shadow color
+    shadowOffset: { width: 0, height: 2 }, // shadow direction and distance
+    shadowOpacity: 0.1, // shadow opacity (0 is transparent, 1 is opaque)
+    shadowRadius: 1, // blur radius
+    elevation: 2, // Android elevation
   },
   unfocused: {
     padding: 10,
-    borderRadius: 5,
-    backgroundColor: Colors.lighterGray,
-    color: Colors.title,
+    paddingHorizontal: 20,
+    borderRadius: 40,
+    backgroundColor: colors.background,
+    color: colors.medium,
+    shadowColor: "#000", // black shadow color
+    shadowOffset: { width: 0, height: 2 }, // shadow direction and distance
+    shadowOpacity: 0.1, // shadow opacity (0 is transparent, 1 is opaque)
+    shadowRadius: 1, // blur radius
+    elevation: 2, // Android elevation
   },
 });
 

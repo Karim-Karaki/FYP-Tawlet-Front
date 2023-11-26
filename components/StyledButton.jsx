@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import Colors from '../constants/colors';
+import colors from '../constants/colors';
 
 const SIZE = {
   small: {
@@ -26,16 +26,17 @@ const StyledButton = ({ size = 'medium', text, onPress, style, textStyle, outlin
     button: {
       width: currentSize.width,
       height: currentSize.height,
-      backgroundColor: outlined ? Colors.background : Colors.primary,
-      borderColor: outlined ? Colors.primary : Colors.background,
+      backgroundColor: outlined ? colors.background : colors.primary,
+      borderColor: outlined ? colors.primary : colors.background,
       borderWidth: outlined ? 1 : 0,
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 5,
+      elevation: 2,
     },
     buttonText: {
       fontSize: currentSize.fontSize,
-      color: outlined ? Colors.primary : Colors.background,
+      color: outlined ? colors.primary : colors.background,
     },
   });
 

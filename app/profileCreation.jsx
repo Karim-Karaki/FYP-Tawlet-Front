@@ -5,11 +5,11 @@ import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scrol
 import StyledInput from "../components/StyledInput";
 import StyledText from "../components/StyledText";
 import StyledButton from "../components/StyledButton";
-import Colors from "../constants/colors";
+import colors from "../constants/colors";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { API_URL } from "@env";
 import axios from "axios";
+import Footer from "../components/Footer";
 
 const profileCreation = () => {
   const { phoneNumber } = useLocalSearchParams();
@@ -57,6 +57,7 @@ const profileCreation = () => {
         requestBody
       );
       console.log(response.data);
+      router.replace("/main/Home");
     } catch (error) {
       console.error("Error creating profile:", error.message);
     }
@@ -82,7 +83,7 @@ const profileCreation = () => {
           text={phoneNumber}
           onPress={null}
           style={[{ marginBottom: 10 }, styles.disabled]}
-          textStyle={{ color: Colors.description }}
+          textStyle={{ color: colors.description }}
           disabled={true}
         />
         <StyledInput
@@ -117,7 +118,7 @@ const profileCreation = () => {
           text={date}
           onPress={null}
           style={[{ marginBottom: 10 }, styles.disabled]}
-          textStyle={{ color: Colors.description }}
+          textStyle={{ color: colors.description }}
           disabled={true}
         />
       </View>
@@ -125,6 +126,7 @@ const profileCreation = () => {
         <StyledButton size="medium" text="Change Number" onPress={handleChangeNumber} outlined />
         <StyledButton size="medium" text="Sign Up" onPress={handleSignUp} />
       </View>
+      <Footer/>
     </SafeAreaView>
   );
 };
@@ -135,19 +137,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 20,
-    backgroundColor: Colors.background,
+    backgroundColor: colors.background,
   },
   header: {
     marginBottom: 30,
   },
   title: {
     fontSize: 18,
-    color: Colors.primary,
+    color: colors.primary,
   },
   description: {
     fontSize: 14,
     marginVertical: 10,
-    color: Colors.description,
+    color: colors.description,
     marginBottom: 20,
   },
   inputContainer: {
@@ -167,7 +169,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   disabled: {
-    backgroundColor: Colors.lighterGray,
+    backgroundColor: colors.lightGrey,
     alignSelf: "center",
   },
   errorText: {

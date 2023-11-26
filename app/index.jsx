@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Colors from "../constants/colors.js";
+import colors from "../constants/colors.js";
 import StyledText from "../components/StyledText.jsx";
 import StyledButton from "../components/StyledButton.jsx";
 import { useRouter } from "expo-router";
@@ -16,7 +16,7 @@ const Page = () => {
   const router = useRouter();
 
   const goToPhoneAuth = () => {
-    router.push("/phoneAuth");
+    router.replace("/phoneAuth");
   };
 
   return (
@@ -31,7 +31,7 @@ const Page = () => {
       <View style={styles.bottomContainer}>
         <View style={styles.textContainer}>
           <StyledText bold style={styles.title}>
-            Welcome to RRFYP!
+            Welcome to Tawlet!
           </StyledText>
           <StyledText style={styles.description}>
             Looking for the perfect place for dinner tonight? Sign in to check
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     height: "30%",
-    backgroundColor: Colors.primary,
+    backgroundColor: colors.primary,
     justifyContent: "space-evenly",
     alignItems: "center",
   },
@@ -69,12 +69,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: Colors.background,
+    color: colors.background,
     paddingHorizontal: 10,
   },
   description: {
     fontSize: 14,
-    color: Colors.background,
+    color: colors.background,
     textAlign: "center",
     paddingHorizontal: 20,
   },

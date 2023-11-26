@@ -5,10 +5,11 @@ import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scrol
 import StyledInput from "../components/StyledInput";
 import StyledText from "../components/StyledText";
 import StyledButton from "../components/StyledButton";
-import Colors from "../constants/colors";
+import colors from "../constants/colors";
 import { API_URL } from "@env";
 import axios from "axios";
 import { useRouter } from "expo-router";
+import Footer from "../components/Footer";
 
 const phoneAuth = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -73,10 +74,14 @@ const phoneAuth = () => {
         `http://${API_URL}/twilio/verify-code`,
         requestBody
       );
-
+      console.log(response.data.message)
       if (response.data.verified) {
         setInvalidCode(false);
-        router.replace({ pathname: "/profileCreation", params: { phoneNumber : phoneNumber }} )
+        if (response.data.message === "User already exists.") {
+          router.replace("/main/Home")
+        } else if (response.data.message === "New user created.") {
+          router.replace({ pathname: "/profileCreation", params: { phoneNumber : phoneNumber }} )
+        }
       } else {
         console.log("Invalid code provided.");
         setInvalidCode(true);
@@ -87,13 +92,17 @@ const phoneAuth = () => {
   };
 
   return (
-    <KeyboardAvoidingScrollView>
+    
+    <KeyboardAvoidingScrollView style={{backgroundColor: colors.background, flex: 1}} contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView style={{ flex: 1, paddingHorizontal: 20 }}>
         <View style={styles.imageContainer}>
-          <Image
+          {/* <Image
             source={{ uri: "https://placehold.co/300.png" }}
             style={styles.imageStyle}
-          />
+          /> */}
+          <StyledText style={{fontSize: 48, marginTop: 128, color: colors.primary}} bold>
+            Welcome!
+          </StyledText>
         </View>
         <View style={styles.middleContainer}>
           <View style={styles.textContainer}>
@@ -157,7 +166,7 @@ const phoneAuth = () => {
                   ? styles.disabled
                   : { alignSelf: "center", marginTop: 10 }
               }
-              textStyle={isOnCooldown ? { color: Colors.description } : {}}
+              textStyle={isOnCooldown ? { color: colors.description } : {}}
               disabled={isOnCooldown}
             />
 
@@ -172,20 +181,24 @@ const phoneAuth = () => {
             </View>
           </View>
         </View>
+        
       </SafeAreaView>
+      <Footer/>
     </KeyboardAvoidingScrollView>
+    
+
   );
 };
 
 const styles = StyleSheet.create({
   title: {
     fontSize: 18,
-    color: Colors.primary,
+    color: colors.primary,
   },
   description: {
     fontSize: 14,
     marginVertical: 10,
-    color: Colors.description,
+    color: colors.description,
     marginBottom: 20,
   },
   buttonContainer: {
@@ -194,8 +207,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   disabled: {
-    backgroundColor: Colors.lighterGray,
+    backgroundColor: colors.lightGrey,
     alignSelf: "center",
+    marginTop: 20
   },
   imageContainer: {
     marginTop: 20,
@@ -214,7 +228,7 @@ const styles = StyleSheet.create({
   },
   submitButtonContainer: {
     alignItems: "center",
-    marginTop: 100,
+    marginTop: 40,
   },
   errorText: {
     alignSelf: "center",
