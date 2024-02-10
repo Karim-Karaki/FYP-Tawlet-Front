@@ -35,11 +35,14 @@ const phoneAuth = () => {
     };
 
     try {
-      const response = await axios.post(
-        `http://${API_URL}/twilio/send-code`,
-        requestBody
-      );
-      console.log(response.data);
+      // const response = await axios.post(
+      //   `http://${API_URL}/twilio/send-code`,
+      //   requestBody
+      // );
+      // setEmptyCodeError(true); 
+      // return; 
+
+      // console.log(response.data);
       setIsOnCooldown(true);
       setSent(true);
       setCooldown(60);
@@ -54,7 +57,7 @@ const phoneAuth = () => {
         });
       }, 1000);
     } catch (error) {
-      console.error("Error sending code:", error.message);
+      console.error("Error sending code:", error);
     }
   };
 
@@ -70,22 +73,24 @@ const phoneAuth = () => {
     };
 
     try {
-      const response = await axios.post(
-        `http://${API_URL}/twilio/verify-code`,
-        requestBody
-      );
-      console.log(response.data.message)
-      if (response.data.verified) {
-        setInvalidCode(false);
-        if (response.data.message === "User already exists.") {
-          router.replace("/main/Home")
-        } else if (response.data.message === "New user created.") {
-          router.replace({ pathname: "/profileCreation", params: { phoneNumber : phoneNumber }} )
-        }
-      } else {
-        console.log("Invalid code provided.");
-        setInvalidCode(true);
-      }
+      // const response = await axios.post(
+      //   `http://${API_URL}/twilio/verify-code`,
+      //   requestBody
+      // );
+      // console.log(response.data.message)
+      // if (response.data.verified) {
+      //   setInvalidCode(false);
+      //   if (response.data.message === "User already exists.") {
+      //     router.replace("/main/Home")
+      //   } else if (response.data.message === "New user created.") {
+      //     router.replace({ pathname: "/profileCreation", params: { phoneNumber : phoneNumber }} )
+      //   }
+      // } else {
+      //   console.log("Invalid code provided.");
+      //   setInvalidCode(true);
+      // }
+      setInvalidCode(false);
+      router.replace("/main/Home")
     } catch (error) {
       console.error("Error sending code:", error.message);
     }
