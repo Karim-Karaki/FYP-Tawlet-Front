@@ -3,6 +3,7 @@ import { Text, BackHandler, Alert, View, Button, StyleSheet, Dimensions  } from 
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomHeader from '../../../components/CustomHeader'
 import Carousel from 'react-native-snap-carousel';
+import CarouselCards from '../../../components/Carousel/CarouselCards';
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import colors from "../../../constants/colors";
 const Page = () => {
@@ -29,14 +30,7 @@ const renderItem = ({ item }) => {
     // <KeyboardAvoidingScrollView style={{backgroundColor: colors.background, flex: 1}} contentContainerStyle={{ flexGrow: 1 }}>
     <SafeAreaView style={styles.container}>  
       <CustomHeader/>
-      <View style={{backgroundColor:"green"}}>
-      <Carousel
-      data={staticData}
-      renderItem={renderItem}
-      sliderWidth={Dimensions.get('window').width}
-      itemWidth={300}
-      />
-      </View>
+      <CarouselCards/>
     </SafeAreaView>
     // </KeyboardAvoidingScrollView>
 
