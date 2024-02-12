@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native"
 
 export const SLIDER_WIDTH = Dimensions.get('window').width
-export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
+export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.8)
 export const ITEM_HEIGHT = Math.round(Dimensions.get('window').height / 5)
 
 const BORDER_RADIUS = 20
