@@ -1,33 +1,36 @@
 import {View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native'
 import React from 'react'
-import { ScrollView } from 'react-native-gesture-handler';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { categories } from '../constants/constants';
 
 export default function Categories() {
     return (
-        <View >
+        <View style={{alignContent:"center"}}>
+            
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 className="horizontalScrollView"
                 contentContainerStyle={styles.shows_horizontal_scrollView}
             >
-            
-            {
-                categories.map((category, index) => {
-                    return (
-                        <View key={index} style={styles.content_container_style}>
-                            <TouchableOpacity style={styles.touchable}>
-                                <Image style={styles.image}
-                                    source={category.image}
-                                />
-                            </TouchableOpacity>
-                            <Text style={styles.text}>{category.name}</Text>
-                        </View>
-                    )
-                
-                })
-            }
+            <FlatList
+                contentContainerStyle={{alignSelf: 'flex-start'}}
+                numColumns={4}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                data={categories}
+                renderItem={({ item }) => (
+                    <View style={styles.content_container_style}>
+                        <TouchableOpacity style={styles.touchable}>
+                            <Image style={styles.image}
+                                source={item.image}
+                            />
+                        </TouchableOpacity>
+                        <Text style={styles.text}>{item.name}</Text>
+                    </View>
+                )}
+                keyExtractor={(item) => item.id}
+            />
             </ScrollView>
         </View>
     )
@@ -67,8 +70,8 @@ const styles = StyleSheet.create({
         
     },
     image: {
-        width:100,
-        height:100
+        width:50,
+        height:50
     },
     text: {
         fontSize: 14,

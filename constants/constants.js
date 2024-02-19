@@ -29,6 +29,16 @@ export const categories = [
         name: 'Sweets',
         image: require('../assets/images/bike.png'),
     },
+    {
+        id: 7,
+        name: 'Pizza',
+        image: require('../assets/images/bike.png'),
+    },
+    {
+        id: 8,
+        name: 'View All',
+        image: require('../assets/images/bike.png'),
+    },
 
 ]
 
