@@ -1,6 +1,6 @@
 import React from "react";
 import { Tabs } from "expo-router/tabs";
-import colors from "../../constants/colors";
+import {colors} from "../../constants/constants.js";
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";

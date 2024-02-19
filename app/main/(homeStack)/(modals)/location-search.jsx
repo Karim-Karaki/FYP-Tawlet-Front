@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import MapView from 'react-native-maps';
-import Colors from '../../../../constants/colors';
+import {colors} from '../../../../constants/constants.js';
 import { useNavigation } from 'expo-router';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { Ionicons } from '@expo/vector-icons';
@@ -37,7 +37,7 @@ const LocationSearch = () => {
         }}
         renderLeftButton={() => (
           <View style={styles.boxIcon}>
-            <Ionicons name="search-outline" size={24} color={Colors.medium} />
+            <Ionicons name="search-outline" size={24} color={colors.medium} />
           </View>
         )}
         styles={{
@@ -45,7 +45,7 @@ const LocationSearch = () => {
             flex: 0,
           },
           textInput: {
-            backgroundColor: Colors.grey,
+            backgroundColor: colors.grey,
             paddingLeft: 35,
             borderRadius: 10,
           },
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   button: {
-    backgroundColor: Colors.primary,
+    backgroundColor: colors.primary,
     padding: 16,
     margin: 16,
     alignItems: 'center',

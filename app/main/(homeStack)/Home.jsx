@@ -13,7 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CustomHeader from "../../../components/CustomHeader";
 import CarouselCards from "../../../components/Carousel/CarouselCards";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
-import {colors} from "../../../constants/index";
+import {colors} from "../../../constants/constants.js";
 import Categories from "../../../components/Categories";
 const Page = () => {
   const newsData = [

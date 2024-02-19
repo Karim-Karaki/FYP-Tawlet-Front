@@ -5,7 +5,7 @@ import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scrol
 import StyledInput from "../components/StyledInput";
 import StyledText from "../components/StyledText";
 import StyledButton from "../components/StyledButton";
-import colors from "../constants/colors";
+import {colors} from "../constants/constants.js";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { API_URL } from "@env";
 import axios from "axios";

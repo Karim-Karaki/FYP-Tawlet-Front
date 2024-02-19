@@ -1,7 +1,7 @@
 import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native';
 import React, { useRef } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import colors from '../constants/colors';
+import {colors} from '../constants/constants.js';
 import { Link } from 'expo-router';
 import BottomSheet from './BottomSheet';
 

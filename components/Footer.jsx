@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import StyledText from "./StyledText";
-import colors from "../constants/colors"
+import {colors} from "../constants/constants.js"
 
 const Footer = () => {
   return (

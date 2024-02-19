@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import colors from "../constants/colors.js";
+import {colors} from "../constants/constants.js";
 import StyledText from "../components/StyledText.jsx";
 import StyledButton from "../components/StyledButton.jsx";
 import { useRouter } from "expo-router";
