@@ -16,13 +16,13 @@ export default function Categories() {
             {
                 categories.map((category, index) => {
                     return (
-                        <View key={index} style={{backgroundColor: "lightblue", padding: 20, marginRight: 10, borderRadius: 10}}>
-                            <TouchableOpacity className = "touchable">
+                        <View key={index} style={styles.content_container_style}>
+                            <TouchableOpacity style={styles.touchable}>
                                 <Image style={styles.image}
                                     source={category.image}
                                 />
-                                <Text style={styles.text}>{category.name}</Text>
                             </TouchableOpacity>
+                            <Text style={styles.text}>{category.name}</Text>
                         </View>
                     )
                 
@@ -43,16 +43,36 @@ const styles = StyleSheet.create({
         overflow: "visible",
     },
     content_container_style: {
-        paddingHorizontal: 15
+        flex: 1,
+        justifyContent: "center",
+        itemAlign: "center",
+        paddingHorizontal: 15,
+        paddingVertical: 3,
+        backgroundColor:"white",
+        marginRight: 0,
     },
     touchable: {
-        padding: "0.25rem",
-     },
+        backgroundColor: "white",
+        padding: 10,
+        // marginRight: 10,
+        borderRadius: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
+        
+    },
     image: {
-        width:45,
-        height:45
+        width:100,
+        height:100
     },
     text: {
-    // Add your styles for the text here
+        fontSize: 14,
+        lineHeight: 20,
+        textAlign: "center",
     },
     });
