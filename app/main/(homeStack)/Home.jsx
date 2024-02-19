@@ -12,38 +12,14 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomHeader from "../../../components/CustomHeader";
 import CarouselCards from "../../../components/Carousel/CarouselCards";
+import FeaturedRow from "../../../components/FeaturedRow";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
-import {colors} from "../../../constants/constants.js";
+import {colors, featured} from "../../../constants/constants.js";
 import Categories from "../../../components/Categories";
 const Page = () => {
-  const newsData = [
-    // Your news data here
-    // Example: { title: 'Breaking News', content: 'Lorem ipsum...' }
-  ];
-  const foodCategories = [
-    "French",
-    "Italian",
-    "Chinese",
-    "Arabic",
-    "Japanese", // Add more as needed
-  ];
-  const staticData = [
-    { id: 1, title: "Item 1" },
-    { id: 2, title: "Item 2" },
-    { id: 3, title: "Item 3" },
-  ];
-  // const renderItem = ({ item }) => {
-  //   return(
-  //   <View style={{ backgroundColor: 'lightblue', padding: 20 }}>
-  //       <Text>{item.title}</Text>
-  //   </View>
-  //   );
-  // };
+
   return (
     // Top of page includes location button and news feed
-
-    // <KeyboardAvoidingScrollAView style={{backgroundColor: colors.background, flex: 1}} contentContainerStyle={{ flexGrow: 1 }}>
-    // </KeyboardAvoidingScrollAView>
     <SafeAreaView style={styles.container}>
       <CustomHeader />
       <CarouselCards />
@@ -55,6 +31,22 @@ const Page = () => {
       >
         {/* categories */}
         <Categories />
+
+        {/* featured */}
+        <View style={styles.featured}>
+          {
+            [featured, featured, featured].map((item, index) => {
+              return (
+                <FeaturedRow
+                  key={index}
+                  title={item.title}
+                  restaurants={item.restaurants}
+                  description={item.description}
+                />
+              )
+            })
+          }
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -67,32 +59,8 @@ const styles = StyleSheet.create({
     // paddingHorizontal: 20 ,
     flexDirection: "column",
   },
-  overlay: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 0,
-    backgroundColor: "rgba(255, 0, 0, 0.5)", // Semi-transparent red overlay
-  },
-  header: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "lightblue",
-  },
-  content: {
-    flex: 2,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "lightgreen",
-  },
-  footer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "lightcoral",
+  featured: {
+    marginTop: 20,
   },
   newsItem: {
     // Style your news item here
