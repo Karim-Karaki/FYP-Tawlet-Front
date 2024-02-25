@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity} from "react-native"
 import React from 'react'
 import { ScrollView } from "react-native-gesture-handler"
+import RestaurantCard from "./RestaurantCard"
 
 export default function FeaturedRow({title, description, restaurants}) {
     return (
@@ -27,9 +28,10 @@ export default function FeaturedRow({title, description, restaurants}) {
                 {
                     restaurants.map((restaurant, index) => {
                         return (
-                            <View key={index}>
-                                <Text>{restaurant.name}</Text>
-                            </View>
+                            <RestaurantCard
+                                item = {restaurant}
+                                key = {index}
+                            />
                         )
                     })
                 }
