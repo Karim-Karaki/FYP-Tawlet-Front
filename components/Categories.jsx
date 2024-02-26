@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
         itemAlign: "center",
         paddingHorizontal: 15,
         paddingVertical: 3,
-        backgroundColor:"white",
         marginRight: 0,
     },
     touchable: {
