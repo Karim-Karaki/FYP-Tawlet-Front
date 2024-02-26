@@ -28,10 +28,14 @@ export default function FeaturedRow({title, description, restaurants}) {
                 {
                     restaurants.map((restaurant, index) => {
                         return (
-                            <RestaurantCard
-                                item = {restaurant}
-                                key = {index}
-                            />
+                            <View style={{marginRight:20}}>
+                                <RestaurantCard
+                                    item = {restaurant}
+                                    key = {index}
+                                    width = {270}
+                                    style={{marginRight: 20}}
+                                />
+                            </View>
                         )
                     })
                 }
@@ -60,8 +64,6 @@ const styles = StyleSheet.create({
         color: "#7D7D7D",
     },
     viewAll: {
-        // fontSize: 12,
-        // lineHeight: 16,
         color: "#FF6C44",
         fontWeight: "600",
     },
