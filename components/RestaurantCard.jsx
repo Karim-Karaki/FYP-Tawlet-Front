@@ -13,12 +13,10 @@ export default function RestaurantCard({item}) {
                         <Text style={styles.smallText}>
                             <Text styles={{color: "green"}}>{item.stars}</Text>
                             <Text styles={{color: "gray"}}> ({item.reviews} review) - <Text style={{fontWeight:600}}>{item.category}</Text>
-                            </Text>
-                            
+                            </Text>     
                         </Text>
                     </View>
                     <View styles={styles.details}>
-                        {/* <Icon name="map-pin" style={styles.mapPin}/> */}
                         <Text style={styles.smallText}> <Icon name="map-pin" style={styles.mapPin}/> Nearby - {item.address}</Text>
                     </View>
                 </View>
@@ -33,7 +31,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         borderRadius: 24,
         backgroundColor: "white",
-        shadowColor: "#000",
+        shadowColor: "#ffffe6",
         shadowOffset: {
             width: 0,
             height: 10,
@@ -63,25 +61,16 @@ const styles = StyleSheet.create({
     details: {
         flexDirection: "row",
         alignItems: "center",
-        // marginLeft: 4,
     },
     stars:{
         width: 16,
         height: 16,
-        // marginRight: 4,
     },
     smallText: {
         fontSize: 12,
         lineHeight: 16,
         color: "gray",
     },
-    // location: {
-    //     flexDirection: "row",
-    //     alignItems: "center",
-    //     // marginLeft: 4,
-    //     // fontSize: 16,
-    //     // color: "gray",
-    // },
     mapPin:{
         width: 15,
         height: 15,
