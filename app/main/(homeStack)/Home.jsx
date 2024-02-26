@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CustomHeader from "../../../components/CustomHeader";
 import CarouselCards from "../../../components/Carousel/CarouselCards";
 import FeaturedRow from "../../../components/FeaturedRow";
+import FeaturedColumn from "../../../components/FeaturedColumn";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import {colors, featured} from "../../../constants/constants.js";
 import Categories from "../../../components/Categories";
@@ -49,6 +50,21 @@ const Page = () => {
             })
           }
         </View>
+        <View style={styles.featured}>
+          {
+            [featured].map((item, index) => {
+              return (
+                <FeaturedColumn
+                  key={index}
+                  title={"HELLO"}
+                  restaurants={item.restaurants}
+                  description={item.description}
+                />
+              )
+            })
+          }
+        </View>
+        
       </ScrollView>
     </SafeAreaView>
   );
