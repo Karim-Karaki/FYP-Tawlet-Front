@@ -49,7 +49,15 @@ const Page = () => {
               )
             })
           }
-        </View>
+        {/* black line */}
+        <View style={{flex: 1, height: 1, backgroundColor: 'black'}} /></View>
+        
+        {/* sortie type */}
+
+        {/* black line */}
+        <View style={{flex: 1, height: 1, backgroundColor: 'black'}}></View>
+        
+        {/* recommendations */}
         <View style={styles.featured}>
           {
             [featured].map((item, index) => {
