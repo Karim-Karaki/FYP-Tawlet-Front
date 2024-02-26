@@ -1,7 +1,6 @@
 import {View, Text, StyleSheet, Button, Image, TouchableWithoutFeedback} from 'react-native';
 import React from 'react';
-// import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-
+import Icon from "react-native-vector-icons/Feather";
 export default function RestaurantCard({item}) {
     return (
         <TouchableWithoutFeedback>
@@ -13,11 +12,15 @@ export default function RestaurantCard({item}) {
                         <Image source = {require('../assets/images/starRate.png')} style={styles.stars}></Image>
                         <Text style={styles.smallText}>
                             <Text styles={{color: "green"}}>{item.stars}</Text>
-                            <Text styles={{color: "grey"}}> ({item.reviews} review) - <Text style={{fontWeight:600}}>{item.category}</Text>
+                            <Text styles={{color: "gray"}}> ({item.reviews} review) - <Text style={{fontWeight:600}}>{item.category}</Text>
                             </Text>
+                            
                         </Text>
                     </View>
-                    {/* <Text style={styles.description}>{item}</Text> */}
+                    <View styles={styles.details}>
+                        {/* <Icon name="map-pin" style={styles.mapPin}/> */}
+                        <Text style={styles.smallText}> <Icon name="map-pin" style={styles.mapPin}/> Nearby - {item.address}</Text>
+                    </View>
                 </View>
             </View>
         </TouchableWithoutFeedback>
@@ -25,17 +28,18 @@ export default function RestaurantCard({item}) {
 }
 const styles = StyleSheet.create({
     container: {
+        //TODO FIX SHADOW
         marginRight: 20,
         marginBottom: 20,
         borderRadius: 24,
-        // backgroundColor: "grey",
+        backgroundColor: "white",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
             height: 10,
         },
         shadowOpacity: 0.1,
-        shadowRadius: 15,
+        shadowRadius: 7,
         // elevation: 20,
     },
     image: {
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
     details: {
         flexDirection: "row",
         alignItems: "center",
-        marginLeft: 4,
+        // marginLeft: 4,
     },
     stars:{
         width: 16,
@@ -69,5 +73,18 @@ const styles = StyleSheet.create({
     smallText: {
         fontSize: 12,
         lineHeight: 16,
+        color: "gray",
     },
+    // location: {
+    //     flexDirection: "row",
+    //     alignItems: "center",
+    //     // marginLeft: 4,
+    //     // fontSize: 16,
+    //     // color: "gray",
+    // },
+    mapPin:{
+        width: 15,
+        height: 15,
+        color: "gray",
+    }
 })
