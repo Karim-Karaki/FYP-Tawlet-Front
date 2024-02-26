@@ -42,6 +42,29 @@ export const categories = [
 
 ]
 
+export const sorties = [
+    {
+        id: 1,
+        name: 'Pizza',
+        image: require('../assets/images/bike.png'),
+    },
+    {
+        id: 2,
+        name: 'Burger',
+        image: require('../assets/images/bike.png'),
+    },
+    {
+        id: 3,
+        name: 'Italian',
+        image: require('../assets/images/bike.png'),
+    },
+    {
+        id: 4,
+        name: 'Chinese',
+        image: require('../assets/images/bike.png'),
+    },
+]
+
 export const featured = {
     id: 1,
     title: 'Hot and Spicy',

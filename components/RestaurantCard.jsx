@@ -4,8 +4,9 @@ import Icon from "react-native-vector-icons/Feather";
 export default function RestaurantCard({item, width}) {
 
     return (
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => console.log("TEST")}>
             <View style={styles.container}>
+            {/* onClick={console.log("HELLO")} */}
                 <Image 
                     source={item.image} 
                     style={{width: width,

@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CustomHeader from "../../../components/CustomHeader";
 import CarouselCards from "../../../components/Carousel/CarouselCards";
 import FeaturedRow from "../../../components/FeaturedRow";
+import Sorties from "../../../components/Sorties";
 import FeaturedColumn from "../../../components/FeaturedColumn";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import {colors, featured} from "../../../constants/constants.js";
@@ -47,15 +48,16 @@ const Page = () => {
                   description={item.description}
                 />
               )
-            })
+            }) 
           }
         {/* black line */}
-        <View style={{flex: 1, height: 1, backgroundColor: 'black'}} /></View>
+        <View style={{flex: 1, height: 2, backgroundColor: 'black'}} /></View>
         
         {/* sortie type */}
+        <Sorties />
 
         {/* black line */}
-        <View style={{flex: 1, height: 1, backgroundColor: 'black'}}></View>
+        <View style={{flex: 1, height: 2, backgroundColor: 'black'}}></View>
         
         {/* recommendations */}
         <View style={styles.featured}>
