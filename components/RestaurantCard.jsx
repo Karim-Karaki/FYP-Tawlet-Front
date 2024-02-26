@@ -1,11 +1,18 @@
 import {View, Text, StyleSheet, Button, Image, TouchableWithoutFeedback} from 'react-native';
 import React from 'react';
 import Icon from "react-native-vector-icons/Feather";
-export default function RestaurantCard({item}) {
+export default function RestaurantCard({item, width}) {
+
     return (
         <TouchableWithoutFeedback>
             <View style={styles.container}>
-                <Image source={item.image} style={styles.image} />
+                <Image 
+                    source={item.image} 
+                    style={{width: width,
+                            height: 144,
+                            borderTopLeftRadius: 20,
+                            borderTopRightRadius: 20,}} 
+                />
                 <View style={styles.textContainer}> 
                     <Text style={styles.title}>{item.name}</Text>
                     <View style={styles.details}>
@@ -24,10 +31,11 @@ export default function RestaurantCard({item}) {
         </TouchableWithoutFeedback>
     )
 }
+
 const styles = StyleSheet.create({
     container: {
         //TODO FIX SHADOW
-        marginRight: 20,
+        // marginRight: 20,
         marginBottom: 20,
         borderRadius: 24,
         backgroundColor: "white",
@@ -41,7 +49,7 @@ const styles = StyleSheet.create({
         // elevation: 20,
     },
     image: {
-        width: 270,
+        // width: width,
         height: 144,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
