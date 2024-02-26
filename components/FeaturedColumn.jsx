@@ -13,9 +13,9 @@ export default function FeaturedColumn({title, description, restaurants}) {
                     {description}
                 </Text> */}
                 {/* </View> */}
-                {/* <TouchableOpacity>
+                <TouchableOpacity>
                     <Text style={styles.viewAll}>See All</Text>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
             </View>
             <ScrollView 
                 vertical
@@ -45,7 +45,7 @@ export default function FeaturedColumn({title, description, restaurants}) {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: "column",
+        flexDirection: "row",
         justifyContent: "space-between",
         // paddingHorizontal: 20,
         paddingLeft: 20,
