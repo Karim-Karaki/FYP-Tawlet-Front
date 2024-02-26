@@ -22,13 +22,15 @@ const Page = () => {
     // Top of page includes location button and news feed
     <SafeAreaView style={styles.container}>
       <CustomHeader />
-      <CarouselCards />
+      
 
       {/* main */}
       <ScrollView
         ShowVersticalScroqlIndicator={false}
         styles={styles.scrollViewVertical}
       >
+        <CarouselCards />
+
         {/* categories */}
         <Categories />
 
@@ -55,7 +57,7 @@ const Page = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f2f2f2",
     // paddingHorizontal: 20 ,
     flexDirection: "column",
   },
