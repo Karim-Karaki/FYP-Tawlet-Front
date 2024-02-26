@@ -35,7 +35,6 @@ export default function RestaurantCard({item, width}) {
 const styles = StyleSheet.create({
     container: {
         //TODO FIX SHADOW
-        // marginRight: 20,
         marginBottom: 20,
         borderRadius: 24,
         backgroundColor: "white",
@@ -49,7 +48,6 @@ const styles = StyleSheet.create({
         // elevation: 20,
     },
     image: {
-        // width: width,
         height: 144,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
