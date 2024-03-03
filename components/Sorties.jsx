@@ -12,12 +12,12 @@ export default function Sorties() {
                 marginVertical: 10,
                 }}>
             
-            <ScrollView
+            {/* <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 className="horizontalScrollView"
                 contentContainerStyle={styles.shows_horizontal_scrollView}
-            >
+            > */}
                 <View contentContainerStyle={{alignSelf: 'flex-start'}}>
                     {/* <Text >Sortie Type</Text> */}
                     <FlatList
@@ -39,7 +39,7 @@ export default function Sorties() {
                         keyExtractor={(item) => item.id}
                     />
                 </View>
-            </ScrollView>
+            {/* </ScrollView> */}
         </View>
     )
 }
@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "black",
         borderRadius: 50,
-        width: 50,
-        height: 50,
+        width: 70,
+        height: 70,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "white",
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
         
     },
     image: {
-        width:30,
-        height:30
+        width:50,
+        height:50
     },
     text: {
         fontSize: 14,

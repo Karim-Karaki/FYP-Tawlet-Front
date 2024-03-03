@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         lineHeight: 24,
         fontWeight: "bold",
+        bottom: 5,
     },
     description: {
         fontSize: 12,
@@ -64,6 +65,7 @@ const styles = StyleSheet.create({
     viewAll: {
         color: "#FF6C44",
         fontWeight: "600",
+        bottom: 5,
     },
     scroll:{
         overflow: "visible",

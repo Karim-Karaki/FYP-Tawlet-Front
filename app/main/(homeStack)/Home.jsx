@@ -39,7 +39,7 @@ const Page = () => {
         {/* featured */}
         <View style={styles.featured}>
           {
-            [featured, featured, featured].map((item, index) => {
+            [featured].map((item, index) => {
               return (
                 <FeaturedRow
                   key={index}
@@ -51,13 +51,13 @@ const Page = () => {
             }) 
           }
         {/* black line */}
-        <View style={{flex: 1, height: 2, backgroundColor: 'black'}} /></View>
+        <View style={{flex: 1, height: 10, backgroundColor: 'gray'}} /></View>
         
         {/* sortie type */}
         <Sorties />
 
         {/* black line */}
-        <View style={{flex: 1, height: 2, backgroundColor: 'black'}}></View>
+        <View style={{flex: 1, height: 10, backgroundColor: 'gray'}}></View>
         
         {/* recommendations */}
         <View style={styles.featured}>
