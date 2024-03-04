@@ -11,13 +11,13 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomHeader from "../../../components/CustomHeader";
-import CarouselCards from "../../../components/Carousel/CarouselCards";
-import FeaturedRow from "../../../components/FeaturedRow";
-import Sorties from "../../../components/Sorties";
-import FeaturedColumn from "../../../components/FeaturedColumn";
+import CarouselCards from "../../../components/Home/Carousel/CarouselCards.jsx";
+import FeaturedRow from "../../../components/Home/FeaturedRow.jsx";
+import Sorties from "../../../components/Home/Sorties.jsx";
+import FeaturedColumn from "../../../components/Home/FeaturedColumn.jsx";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import {colors, featured} from "../../../constants/constants.js";
-import Categories from "../../../components/Categories";
+import Categories from "../../../components/Home/Categories.jsx";
 const Page = () => {
 
   return (
@@ -90,15 +90,9 @@ const styles = StyleSheet.create({
   featured: {
     marginTop: 20,
   },
-  newsItem: {
-    // Style your news item here
-    // Example: margin, padding, background color, etc.
-  },
   categoryButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
-    // Style your buttons here
-    // Example: margin, padding, background color, etc.
   },
   scrollViewVertical: {
     paddingBottom: 20,

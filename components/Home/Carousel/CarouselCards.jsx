@@ -9,7 +9,7 @@ const CarouselCards = () => {
   const [index, setIndex] = React.useState(0)
 
   return (
-    <View >
+    <View style={{marginTop:10}}>
       <Carousel
         // layout="tinder"
         layoutCardOffset={9}

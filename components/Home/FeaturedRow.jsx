@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity} from "react-native"
 import React from 'react'
 import { ScrollView } from "react-native-gesture-handler"
-import RestaurantCard from "./RestaurantCard"
+import RestaurantCard from "../RestaurantCard"
 
 export default function FeaturedRow({title, description, restaurants}) {
     return (

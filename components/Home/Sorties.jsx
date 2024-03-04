@@ -1,7 +1,7 @@
 import {View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
-import { categories, sorties } from '../constants/constants';
+import { categories, sorties } from '../../constants/constants';
 
 export default function Sorties() {
     return (
