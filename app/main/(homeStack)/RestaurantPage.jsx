@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, Linking, Pressable  } from 'react-native';
-
+import Icon from "react-native-vector-icons/Feather";
 import { Rating} from 'react-native-ratings';
 import axios from 'axios';
-import { restaurantConst } from '../../../constants/constants';
+import { restaurantConst, floorMap } from '../../../constants/constants';
 import {Dimensions} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -88,7 +89,7 @@ export default function RestaurantPage() {
           </View>
           {/* Button to view all reviews */}
           <Pressable style={styles.viewAllButton} onPress={"this.loadInBrowser"}>
-            <Text style={styles.viewAllText}>{'>'}</Text>
+            <Icon name="chevron-right" style={styles.viewAllText}/>
           </Pressable>
         </View>
 
@@ -132,25 +133,60 @@ export default function RestaurantPage() {
         <Text
           style={{
             color: 'gray',
-            marginBottom: 5,
+            marginBottom: 0,
           }}
         > 
           Good food, good service, good price. Such amazing food, the cheese sticks melted in my mouth
         </Text>
 
         {/* Gray line */}
-        <View style={
+        {/* <View style={
           {
             flex: 1, 
             height: 1,
             backgroundColor: 'gray',
             }
-          }/>
+          }/> */}
 
         {/* Write a review button */}
-        
+          <Pressable 
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginVertical: 7,
+            }} 
+            onPress={"this.loadInBrowser"}
+            >
+          <Text style={{color:'crimson'}}> <Icon name="edit" style={styles.writeReview}/>  Write a review</Text>
+          <Rating 
+              type='custom'
+              ratingCount={5}
+              imageSize={20}
+              tintColor='#f2f2f2'
+              readonly
+              ratingColor='crimson'
+              startingValue={4}
+            />
+          </Pressable>
+
+        {/* Thick Gray line */}
+        <View style={
+          {
+            flex: 1, 
+            height: 3,
+            backgroundColor: 'gray',
+          }}/>
 
         {/* List offers?*/}
+        
+        {/* Floor Map */}
+        <Text style={styles.floorMapText}>Floor Map</Text>
+        
+        <Image 
+          style={styles.floorImage}
+          source={floorMap}>
+        </Image>
+
         </View>
       </ScrollView>
     </View>
@@ -166,8 +202,19 @@ const styles = StyleSheet.create({
     height: windowHeight/3.5,
     marginTop: 25,
   },
+  floorImage: {
+    alignSelf: 'center',
+    width: windowWidth*0.9,
+    height: windowHeight/3.5,
+  },
   title: {
     fontSize: 24,
+    fontWeight: 'bold',
+  },
+  floorMapText: {
+    fontSize: 24,
+    marginTop: 10,
+    marginBottom: 10,
     fontWeight: 'bold',
   },
   description: {
@@ -191,7 +238,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   ratingNumber: {
-    fontSize: 24,
+    fontSize: 20,
     alignSelf: 'center',
     marginLeft: 10,
   },
@@ -199,9 +246,7 @@ const styles = StyleSheet.create({
     color: 'crimson',
   },
   viewAllButton: {
-    alignItems: 'center',
-    // alignSelf: 'center',
-    // justifyContent: 'center',
+    alignSelf: 'center',
     borderRadius: 15,
     backgroundColor: '#f2f2f2',
     height: 30,
@@ -212,5 +257,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'crimson',
   },
+  writeReview: {
+    fontSize: 20,
+    color: 'crimson',
+  }
   
 });
