@@ -47,6 +47,8 @@ export default function RestaurantPage() {
         <Text style={styles.title}>{restaurant.name} - {restaurant.address}</Text>
         <Text style={styles.description}>{restaurant.description}</Text>
 
+
+        {/* TODO Make gray line into an import instead of copy paste */}
         {/* Gray line */}
         <View style={
           {
@@ -58,30 +60,97 @@ export default function RestaurantPage() {
           }/>
 
         {/* Menu button and rating bar*/}
-        <View
-          style={
+        <View style={
             {
               flexDirection: 'row',
               justifyContent: 'space-between',
               marginVertical: 10,
             }
           }>
+          {/* Menu Button */}
           <Pressable style={styles.button} onPress={this.loadInBrowser}>
             <Text style={styles.text}>Menu</Text>
           </Pressable>
+          {/* Rating nb */}
           <Text style={styles.ratingNumber}>3.5</Text>
+          {/* Rating stars */}
           <View>
             <Rating 
               type='custom'
               ratingCount={5}
               imageSize={50}
               tintColor='#f2f2f2'
+              readonly
               ratingColor='crimson'
+              startingValue={3.5}
             />
-            <Text style = {{color:"grey"}}> Based on 300 ratings</Text>
+            <Text style = {{color:"gray"}}> Based on 300 ratings</Text>
           </View>
+          {/* Button to view all reviews */}
+          <Pressable style={styles.viewAllButton} onPress={"this.loadInBrowser"}>
+            <Text style={styles.viewAllText}>{'>'}</Text>
+          </Pressable>
         </View>
-        {/* Add other restaurant details here */}
+
+        {/* Gray line */}
+        <View style={
+          {
+            flex: 1, 
+            height: 1,
+            backgroundColor: 'gray',
+            }
+          }/>
+
+        {/* List a review */}
+
+        {/* Name and rating */}
+        <View
+          style={
+            {
+              flexDirection: 'row',
+              justifyContent: 'left',
+              marginTop: 5,
+            }
+          }>
+            <Text
+              style={{
+                fontSize: 16,
+              }}
+              > User1 </Text>
+            <Rating 
+              type='custom'
+              ratingCount={5}
+              imageSize={20}
+              tintColor='#f2f2f2'
+              readonly
+              ratingColor='crimson'
+              startingValue={4}
+            />
+          </View>
+
+        {/* Rating description*/}
+        <Text
+          style={{
+            color: 'gray',
+            marginBottom: 5,
+          }}
+        > 
+          Good food, good service, good price. Such amazing food, the cheese sticks melted in my mouth
+        </Text>
+
+        {/* Gray line */}
+        <View style={
+          {
+            flex: 1, 
+            height: 1,
+            backgroundColor: 'gray',
+            }
+          }/>
+
+        {/* Write a review button */}
+        
+
+        {/* List offers?*/}
         </View>
       </ScrollView>
     </View>
@@ -127,6 +196,20 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   rating: {
+    color: 'crimson',
+  },
+  viewAllButton: {
+    alignItems: 'center',
+    // alignSelf: 'center',
+    // justifyContent: 'center',
+    borderRadius: 15,
+    backgroundColor: '#f2f2f2',
+    height: 30,
+    width: 30,
+  },
+  viewAllText: {
+    fontSize: 30,
+    fontWeight: 'bold',
     color: 'crimson',
   },
   
