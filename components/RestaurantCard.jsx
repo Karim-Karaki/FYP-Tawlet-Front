@@ -1,10 +1,16 @@
 import {View, Text, StyleSheet, Button, Image, TouchableWithoutFeedback} from 'react-native';
 import React from 'react';
 import Icon from "react-native-vector-icons/Feather";
-export default function RestaurantCard({item, width}) {
+import { useNavigation } from '@react-navigation/native';
+// import RestaurantPage from '../app/main/(homeStack)/RestaurantPage';
+import { router } from 'expo-router';
 
+export default function RestaurantCard({item, width}) {
+    const navigation = useNavigation();
     return (
-        <TouchableWithoutFeedback onPress={() => console.log("TEST")}>
+        <TouchableWithoutFeedback 
+        onPress={() => router.replace("/main/RestaurantPage")}
+        >
             <View style={styles.container}>
             {/* onClick={console.log("HELLO")} */}
                 <Image 
