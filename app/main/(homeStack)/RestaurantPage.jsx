@@ -6,6 +6,7 @@ import axios from 'axios';
 import { restaurantConst, floorMap } from '../../../constants/constants';
 import {Dimensions} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { router } from 'expo-router';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -177,15 +178,21 @@ export default function RestaurantPage() {
             backgroundColor: 'gray',
           }}/>
 
+        {/* TODO ADD OFFERS EITHER CAROUSEL OR HORIZONTAL VIEW */}
         {/* List offers?*/}
         
         {/* Floor Map */}
         <Text style={styles.floorMapText}>Floor Map</Text>
         
-        <Image 
-          style={styles.floorImage}
-          source={floorMap}>
-        </Image>
+        {/* Making it clickable */}
+        <Pressable 
+            onPress={() => router.replace("/main/FloorMap")}
+            >
+          <Image 
+            style={styles.floorImage}
+            source={floorMap}>
+          </Image>
+        </Pressable>
 
         </View>
       </ScrollView>
@@ -205,7 +212,9 @@ const styles = StyleSheet.create({
   floorImage: {
     alignSelf: 'center',
     width: windowWidth*0.9,
-    height: windowHeight/3.5,
+    // height: windowHeight/4,
+    resizeMode: 'contain',
+    marginBottom: 50,
   },
   title: {
     fontSize: 24,

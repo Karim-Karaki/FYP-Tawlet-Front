@@ -5,6 +5,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
+/* 
+Different tabs of the page, i.e the button bar at the bottom of the page which
+allows the user to navigate between different sections of the app
+such as Home, Search, Reservations, and Settings pages
+*/
 function Layout() {
   return (
     <BottomSheetModalProvider>

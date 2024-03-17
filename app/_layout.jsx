@@ -49,10 +49,15 @@ function RootLayoutNav() {
 
   return (
       <Stack screenOptions={{headerShown: false}}>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="phoneAuth" options={{ headerShown: false }} />
-        <Stack.Screen name="profileCreation" options={{ headerShown: false }} />
-        <Stack.Screen name="main" options={{headerShown:false}}/>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="phoneAuth" />
+        <Stack.Screen name="profileCreation" />
+        <Stack.Screen name="main" />
+        {/* <Stack.Screen 
+          name= "Restaurant"
+          component={RestaurantPage}
+          options={({ route }) => ({ title: route.params.name})}
+        /> */}
       </Stack>
   );
 }
