@@ -11,7 +11,6 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height
 
 export default function FloorMap() {
-    const restaurantSeats = ["table 1","table 2","table 3","table 4","table 5", "table 6"]
     const [ language, setLanguage ] = useState("");
 
     const tableData = [
@@ -91,6 +90,7 @@ export default function FloorMap() {
             <DropdownComponent data={tableData} inputPhrase={inputTable}/>
             <DropdownComponent data={dateData} inputPhrase={inputDate}/>
             <DropdownComponent data={timeData} inputPhrase={inputTime}/>
+            {/* TODO ADD NUMBER OF GUESTS INPUT */}
             <Pressable style={{
               flexDirection: 'row',
               justifyContent: 'center',

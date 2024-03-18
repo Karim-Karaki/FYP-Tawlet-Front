@@ -8,7 +8,7 @@ const Page = () => {
 
   const reservations = [
     {
-      restaurant: "Tawlet", 
+      restaurant: "Restaurant1", 
       date: "2021-10-10", 
       time: "19:00", 
       table: 3,
@@ -16,7 +16,7 @@ const Page = () => {
       logo: require('../../assets/images/logo1.jpg')
     },
     {
-      restaurant: "Tawlet1", 
+      restaurant: "Restaurant2", 
       date: "2021-10-10", 
       time: "19:00", 
       table: 3,
@@ -24,7 +24,7 @@ const Page = () => {
       logo: require('../../assets/images/logo2.jpg')
     },
     {
-      restaurant: "Tawlet2", 
+      restaurant: "Restaurant3", 
       date: "2021-10-10", 
       time: "19:00", 
       table: 3,

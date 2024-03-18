@@ -80,7 +80,7 @@ export default function RestaurantPage() {
             <Rating 
               type='custom'
               ratingCount={5}
-              imageSize={50}
+              imageSize={40}
               tintColor='#f2f2f2'
               readonly
               ratingColor='crimson'
@@ -207,7 +207,8 @@ const styles = StyleSheet.create({
   image: {
     width: windowWidth,
     height: windowHeight/3.5,
-    marginTop: 25,
+    marginTop: 30,
+    marginBottom: 10,
   },
   floorImage: {
     alignSelf: 'center',
