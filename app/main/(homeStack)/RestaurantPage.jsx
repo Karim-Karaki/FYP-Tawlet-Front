@@ -39,6 +39,7 @@ export default function RestaurantPage() {
   };
 
   return(
+    // TODO FIX STUFF TO SAFEAREAVIEW TO REMOVE OVERLAPS
     <View style>
       <ScrollView>
         <Image 
