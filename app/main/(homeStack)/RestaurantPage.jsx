@@ -16,7 +16,7 @@ const windowHeight = Dimensions.get('window').height;
 export default function RestaurantPage() {
 
   const [restaurant, setRestaurant] = useState(null);
-  const [restaurantReviewStats, setRestaurantReviewStats] = useState(null);
+  const [restaurantReviewStats, setRestaurantReviewStats] = useState({averageRating: 0, totalReviews: 0});
   const [restaurantImage, setRestaurantImage] = useState(null);
   const restaurantId = "6558ac688934c017e768bcfd";
 
@@ -36,12 +36,9 @@ export default function RestaurantPage() {
         const response = await axios.get(`${API_URL}/restaurants/${restaurantId}`);
         setRestaurant(response.data);
         setRestaurantImage(restaurantConst.image);
-        // console.log("TEST")
       } catch (error) {
         // TODO check if weird relating to adding one more line for apiurl to work without cashed version
         console.error(error);
-        // console.log(`${API_URL}/${restaurantId}`)
-        // setRestaurant(restaurantConst);
       }
     };
 
@@ -49,11 +46,9 @@ export default function RestaurantPage() {
     const fetchReviewData = async () => {
       try {
         const response = await axios.get(`${API_URL}/review/restaurant/${restaurantId}/average`);
-        setRestaurantReviewStats(response.data);
-        if(response.data.averageRating == null){
-          setRestaurantReviewStats({averageRating: 0, totalReviews: 0});
+        if(response.data.averageRating != null){
+          setRestaurantReviewStats(response.data);
         }
-        console.log(response.data);
       } catch (error) {
         console.error(error);
       }
