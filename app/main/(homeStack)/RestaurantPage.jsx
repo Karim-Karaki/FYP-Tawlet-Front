@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, Linking, Pressable  } from 'react-native';
+import { View, Text, Image, StyleSheet, Linking, Pressable, Alert } from 'react-native';
 import Icon from "react-native-vector-icons/Feather";
 import { Rating} from 'react-native-ratings';
 import axios from 'axios';
@@ -7,6 +7,8 @@ import { restaurantConst, floorMap } from '../../../constants/constants';
 import {Dimensions} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { router } from 'expo-router';
+import { API_URL } from "@env";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -14,23 +16,60 @@ const windowHeight = Dimensions.get('window').height;
 export default function RestaurantPage() {
 
   const [restaurant, setRestaurant] = useState(null);
+  const [restaurantReviewStats, setRestaurantReviewStats] = useState(null);
+  const [restaurantImage, setRestaurantImage] = useState(null);
+  const restaurantId = "6558ac688934c017e768bcfd";
+
+  onPressReviewsButton = () => {
+    if (restaurantReviewStats.totalReviews == 0) {
+        return Alert.alert("Not available",'No reviews exist yet')
+    }
+    // this.makeRemoteRequest()
+    console.log("OK")
+  };
 
   useEffect(() => {
+
+    // Get restaurant info to display
     const fetchRestaurantData = async () => {
       try {
-        const response = await axios.get(`https://your-api-url.com/restaurants/${route.params.id}`);
+        const response = await axios.get(`${API_URL}/restaurants/${restaurantId}`);
         setRestaurant(response.data);
-        setRestaurant(restaurantConst);
+        setRestaurantImage(restaurantConst.image);
+        // console.log("TEST")
       } catch (error) {
+        // TODO check if weird relating to adding one more line for apiurl to work without cashed version
         console.error(error);
-        setRestaurant(restaurantConst);
+        // console.log(`${API_URL}/${restaurantId}`)
+        // setRestaurant(restaurantConst);
       }
     };
+
+    // Get review average and number of ratings
+    const fetchReviewData = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/review/restaurant/${restaurantId}/average`);
+        setRestaurantReviewStats(response.data);
+        if(response.data.averageRating == null){
+          setRestaurantReviewStats({averageRating: 0, totalReviews: 0});
+        }
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    // Call the functions
     fetchRestaurantData();
-  // }, [route.params.id]);
-  })  
+    fetchReviewData();
+  },[]);
+
   if (restaurant==null) {
-    return <Text>Loading...</Text>;
+    return (
+    <SafeAreaView>
+      <Text>Loading...</Text>
+    </SafeAreaView>
+    )
   }
   const restaurantMenuLink = "http://www.google.com"
 
@@ -40,15 +79,26 @@ export default function RestaurantPage() {
 
   return(
     // TODO FIX STUFF TO SAFEAREAVIEW TO REMOVE OVERLAPS
-    <View style>
+    <SafeAreaView>
       <ScrollView>
         <Image 
           style={styles.image}
-          source={restaurant.image}
+          source={restaurantImage}
         />
         <View style={styles.container}>
-        <Text style={styles.title}>{restaurant.name} - {restaurant.address}</Text>
-        <Text style={styles.description}>{restaurant.description}</Text>
+          <Text style={styles.title}>{restaurant.name} - {restaurant.location}</Text>
+          {/* <Text style={styles.description}>{restaurant.description}</Text> */}
+          {/* <Text style={styles.description}>{restaurant.cuisine}</Text> */}
+          <Text style={styles}>Opening hours:{restaurant.openingHours}</Text>
+          <View style={styles.cuisine}>
+            <Text>Cuisine: </Text>
+          {
+            restaurant.cuisine.map((y) => {
+                return (
+                <Text style={styles.cuisineText}>{y} </Text>);
+            })
+          }
+          </View>
 
 
         {/* TODO Make gray line into an import instead of copy paste */}
@@ -75,7 +125,7 @@ export default function RestaurantPage() {
             <Text style={styles.text}>Menu</Text>
           </Pressable>
           {/* Rating nb */}
-          <Text style={styles.ratingNumber}>3.5</Text>
+          <Text style={styles.ratingNumber}>{restaurantReviewStats.averageRating}</Text>
           {/* Rating stars */}
           <View>
             <Rating 
@@ -85,12 +135,14 @@ export default function RestaurantPage() {
               tintColor='#f2f2f2'
               readonly
               ratingColor='crimson'
-              startingValue={3.5}
+              startingValue={restaurantReviewStats.averageRating}
             />
-            <Text style = {{color:"gray"}}> Based on 300 ratings</Text>
+            <Text style = {{color:"gray"}}> Based on {restaurantReviewStats.totalReviews} ratings</Text>
           </View>
           {/* Button to view all reviews */}
-          <Pressable style={styles.viewAllButton} onPress={"this.loadInBrowser"}>
+          <Pressable style={styles.viewAllButton} 
+            onPress={this.onPressReviewsButton}
+            >
             <Icon name="chevron-right" style={styles.viewAllText}/>
           </Pressable>
         </View>
@@ -197,7 +249,7 @@ export default function RestaurantPage() {
 
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -208,7 +260,6 @@ const styles = StyleSheet.create({
   image: {
     width: windowWidth,
     height: windowHeight/3.5,
-    marginTop: 30,
     marginBottom: 10,
   },
   floorImage: {
@@ -230,6 +281,13 @@ const styles = StyleSheet.create({
   },
   description: {
     marginTop: 10,
+  },
+  cuisine: {
+    flexDirection: 'row',
+    // marginTop: 10,
+  },
+  cuisineText: {
+    color: 'gray',
   },
   button:{
     alignItems: 'center',
