@@ -166,12 +166,12 @@ export default function RestaurantPage() {
           {/* Button to View All Reviews */}
           <Pressable style={styles.viewAllButton} 
             onPress={
-              // () => navigation.navigate('ReviewsPage',{
-              // reviews: restaurantReviews,
-              // })
-              () => router.replace("/main/ReviewsPage",{
+              () => navigation.navigate('ReviewsPage',{
                 restaurantReviews: restaurantReviews,
               })
+              // () => router.replace("/main/ReviewsPage",{
+              //   restaurantReviews: restaurantReviews,
+              // })
             }
             >
             <Icon name="chevron-right" style={styles.viewAllText}/>
@@ -192,7 +192,8 @@ export default function RestaurantPage() {
           <ReviewComponent
             key={restaurantReviews[0]._id}
             review={restaurantReviews[0]}
-            reviewerName={"UserX"+" "}
+            reviewerName={"UserX"}
+            tintColor={'#f2f2f2'}
           />
           )}
         {/* ------------------ */}
