@@ -9,6 +9,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { router } from 'expo-router';
 import { API_URL } from "@env";
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ReviewComponent from '../../../components/SingularReview';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -42,7 +43,6 @@ export default function RestaurantPage() {
         return Alert.alert("Not available",'No reviews exist yet')
     }
     console.log(restaurantReviews)
-    console.log(`${API_URL}/review/restaurant/${restaurantId}`)
   };
 
   useEffect(() => {
@@ -84,7 +84,6 @@ export default function RestaurantPage() {
     // Call the functions
     fetchRestaurantData();
     fetchReviewData();
-    console.log(restaurantReviewStats)
     fetchReviews();
   },[]);
 
@@ -95,9 +94,6 @@ export default function RestaurantPage() {
     </SafeAreaView>
     )
   }
-  // const restaurantMenuLink = "http://www.google.com"
-
-
 
   return(
     // TODO FIX STUFF TO SAFEAREAVIEW TO REMOVE OVERLAPS
@@ -183,40 +179,13 @@ export default function RestaurantPage() {
           }/>
 
         {/* List a review */}
-        {/* Name and rating */}
-        <View
-          style={
-            {
-              flexDirection: 'row',
-              justifyContent: 'left',
-              marginTop: 5,
-            }
-          }>
-            <Text
-              style={{
-                fontSize: 16,
-              }}
-              > User1 </Text>
-            <Rating 
-              type='custom'
-              ratingCount={5}
-              imageSize={20}
-              tintColor='#f2f2f2'
-              readonly
-              ratingColor='crimson'
-              startingValue={4}
-            />
-          </View>
-
-        {/* Rating description*/}
-        <Text
-          style={{
-            color: 'gray',
-            marginBottom: 0,
-          }}
-        > 
-          Good food, good service, good price. Such amazing food, the cheese sticks melted in my mouth
-        </Text>
+        {restaurantReviews !== null && restaurantReviews.length > 0 && (
+          <ReviewComponent
+            key={restaurantReviews[0]._id}
+            review={restaurantReviews[0]}
+            reviewerName={"UserX"+" "}
+          />
+          )}
         {/* ------------------ */}
 
         {/* Write a review button */}
