@@ -10,11 +10,13 @@ import { router } from 'expo-router';
 import { API_URL } from "@env";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ReviewComponent from '../../../components/SingularReview';
+import { useNavigation } from 'expo-router';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function RestaurantPage() {
+  const navigation = useNavigation();
 
   const [restaurant, setRestaurant] = useState(null);
   const [restaurantReviewStats, setRestaurantReviewStats] = useState(null);
@@ -161,9 +163,16 @@ export default function RestaurantPage() {
               Based on {restaurantReviewStats ? restaurantReviewStats.totalReviews : "error"} ratings
             </Text>
           </View>
-          {/* Button to view all reviews */}
+          {/* Button to View All Reviews */}
           <Pressable style={styles.viewAllButton} 
-            onPress={this.onPressReviewsButton}
+            onPress={
+              // () => navigation.navigate('ReviewsPage',{
+              // reviews: restaurantReviews,
+              // })
+              () => router.replace("/main/ReviewsPage",{
+                restaurantReviews: restaurantReviews,
+              })
+            }
             >
             <Icon name="chevron-right" style={styles.viewAllText}/>
           </Pressable>

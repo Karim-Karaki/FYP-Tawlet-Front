@@ -5,9 +5,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import Home from "./Home";
+import ReviewPage from "./ReviewsPage.jsx";
 
 function Layout() {
   return (
+    // TODO REFACTOR ROUTING TO USE COMPONENTS AND NOT BE IN LAYOUT FILE
     <BottomSheetModalProvider>
     <Stack
       screenOptions={{
@@ -42,6 +44,21 @@ function Layout() {
           // route }) => ({ title: route.params.name })
           href: "/main/RestaurantPage",}}
         />
+        {/* <Stack.Screen
+        name="Reviews"
+        options={{
+          href: "/main/ReviewsPage",}}
+        /> */}
+        <Stack.Screen 
+          name="ReviewsPage" 
+          // component={ReviewPage} 
+          initialParams={{
+            restaurantReviews: null,
+          }}
+          options={{ 
+            href: "/main/ReviewsPage",}}
+        />
+
         <Stack.Screen
         name="FloorMap"
         options={{ 
