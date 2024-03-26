@@ -16,16 +16,33 @@ const windowHeight = Dimensions.get('window').height;
 export default function RestaurantPage() {
 
   const [restaurant, setRestaurant] = useState(null);
-  const [restaurantReviewStats, setRestaurantReviewStats] = useState({averageRating: 0, totalReviews: 0});
+  const [restaurantReviewStats, setRestaurantReviewStats] = useState(null);
   const [restaurantImage, setRestaurantImage] = useState(null);
-  const restaurantId = "6558ac688934c017e768bcfd";
+  const [restaurantReviews, setRestaurantReviews] = useState(null);
+  const restaurantId = "65f8162ebc60f80b378893f1";
 
+  // Loading link in browser function
+  loadInBrowser = (restaurantMenuLink) => {
+    Linking.openURL(restaurantMenuLink).catch(err => console.error("Couldn't load page", err));
+  };
+
+  // Menu Button function
+  onPressMenuButton = () => {
+    if(restaurant.menu == null){
+      return Alert.alert("Not available",'No menu available')
+    }
+    else{
+      loadInBrowser(restaurant.menu)
+    }
+  };
+
+  // Check All Reviews Button function
   onPressReviewsButton = () => {
     if (restaurantReviewStats.totalReviews == 0) {
         return Alert.alert("Not available",'No reviews exist yet')
     }
-    // this.makeRemoteRequest()
-    console.log("OK")
+    console.log(restaurantReviews)
+    console.log(`${API_URL}/review/restaurant/${restaurantId}`)
   };
 
   useEffect(() => {
@@ -46,17 +63,29 @@ export default function RestaurantPage() {
     const fetchReviewData = async () => {
       try {
         const response = await axios.get(`${API_URL}/review/restaurant/${restaurantId}/average`);
-        if(response.data.averageRating != null){
-          setRestaurantReviewStats(response.data);
-        }
+        setRestaurantReviewStats(response.data);
       } catch (error) {
         console.error(error);
       }
     };
 
+    // Get all reviews if they exist
+    const fetchReviews = async () => {
+      // if (restaurantReviewStats.totalReviews != 0) {
+        try {
+          const response = await axios.get(`${API_URL}/review/restaurant/${restaurantId}`);
+          setRestaurantReviews(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      // }
+    };
+
     // Call the functions
     fetchRestaurantData();
     fetchReviewData();
+    console.log(restaurantReviewStats)
+    fetchReviews();
   },[]);
 
   if (restaurant==null) {
@@ -66,11 +95,9 @@ export default function RestaurantPage() {
     </SafeAreaView>
     )
   }
-  const restaurantMenuLink = "http://www.google.com"
+  // const restaurantMenuLink = "http://www.google.com"
 
-  loadInBrowser = () => {
-    Linking.openURL(restaurantMenuLink).catch(err => console.error("Couldn't load page", err));
-  };
+
 
   return(
     // TODO FIX STUFF TO SAFEAREAVIEW TO REMOVE OVERLAPS
@@ -116,11 +143,13 @@ export default function RestaurantPage() {
             }
           }>
           {/* Menu Button */}
-          <Pressable style={styles.button} onPress={this.loadInBrowser}>
+          <Pressable style={styles.button} onPress={this.onPressMenuButton}>
             <Text style={styles.text}>Menu</Text>
           </Pressable>
           {/* Rating nb */}
-          <Text style={styles.ratingNumber}>{restaurantReviewStats.averageRating}</Text>
+          <Text style={styles.ratingNumber}>
+            {restaurantReviewStats ? restaurantReviewStats.averageRating : "Error"}
+          </Text>
           {/* Rating stars */}
           <View>
             <Rating 
@@ -130,9 +159,11 @@ export default function RestaurantPage() {
               tintColor='#f2f2f2'
               readonly
               ratingColor='crimson'
-              startingValue={restaurantReviewStats.averageRating}
+              startingValue={restaurantReviewStats ? restaurantReviewStats.averageRating: 0}
             />
-            <Text style = {{color:"gray"}}> Based on {restaurantReviewStats.totalReviews} ratings</Text>
+            <Text style = {{color:"gray"}}>
+              Based on {restaurantReviewStats ? restaurantReviewStats.totalReviews : "error"} ratings
+            </Text>
           </View>
           {/* Button to view all reviews */}
           <Pressable style={styles.viewAllButton} 
@@ -152,7 +183,6 @@ export default function RestaurantPage() {
           }/>
 
         {/* List a review */}
-
         {/* Name and rating */}
         <View
           style={
@@ -187,15 +217,7 @@ export default function RestaurantPage() {
         > 
           Good food, good service, good price. Such amazing food, the cheese sticks melted in my mouth
         </Text>
-
-        {/* Gray line */}
-        {/* <View style={
-          {
-            flex: 1, 
-            height: 1,
-            backgroundColor: 'gray',
-            }
-          }/> */}
+        {/* ------------------ */}
 
         {/* Write a review button */}
           <Pressable 
