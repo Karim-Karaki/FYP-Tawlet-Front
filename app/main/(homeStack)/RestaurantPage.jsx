@@ -11,6 +11,7 @@ import { API_URL } from "@env";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ReviewComponent from '../../../components/SingularReview';
 import { useNavigation } from 'expo-router';
+import { useRoute } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;

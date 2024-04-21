@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   BackHandler,
@@ -18,13 +18,36 @@ import FeaturedColumn from "../../../components/Home/FeaturedColumn.jsx";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import {colors, featured} from "../../../constants/constants.js";
 import Categories from "../../../components/Home/Categories.jsx";
-const Page = () => {
+import { API_URL } from "@env";
+import axios from 'axios';
+
+export default function Page(){
+
+  const [restaurants, setRestaurants] = useState(null);
+
+  useEffect(() => {
+
+    const fetchRestaurants = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/restaurants/`);
+        setRestaurants(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchRestaurants();
+
+  }, []);
 
   return (
     // Top of page includes location button and news feed
     <SafeAreaView style={styles.container}>
       <CustomHeader />
       
+      <Button 
+        title="Test" 
+        onPress={()=>console.log(restaurants)}>TEST</Button>
 
       {/* main */}
       <ScrollView
@@ -39,7 +62,7 @@ const Page = () => {
         {/* featured */}
         <View style={styles.featured}>
           {
-            [featured].map((item, index) => {
+            restaurants !== null &&  [featured].map((item, index) => {
               return (
                 <FeaturedRow
                   key={index}
@@ -62,12 +85,12 @@ const Page = () => {
         {/* recommendations */}
         <View style={styles.featured}>
           {
-            [featured].map((item, index) => {
+            restaurants !== null &&  [featured].map((item, index) => {
               return (
                 <FeaturedColumn
                   key={index}
                   title={"HELLO"}
-                  restaurants={item.restaurants}
+                  restaurants={restaurants}
                   description={item.description}
                 />
               )
@@ -100,4 +123,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Page;

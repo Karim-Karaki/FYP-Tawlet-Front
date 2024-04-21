@@ -4,6 +4,7 @@ import { ScrollView } from "react-native-gesture-handler"
 import RestaurantCard from "../RestaurantCard"
 
 export default function FeaturedColumn({title, description, restaurants}) {
+
     return (
         <View>
             <View style={styles.container}>
