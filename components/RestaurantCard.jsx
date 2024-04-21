@@ -26,7 +26,8 @@ export default function RestaurantCard({item, width}) {
     const navigation = useNavigation();
     return (
         <TouchableWithoutFeedback 
-        onPress={() => router.replace("/main/RestaurantPage")}
+        // onPress={() => router.replace("/main/RestaurantPage")}
+        onPress={() => navigation.navigate('RestaurantPage', {restaurantId: item._id})}
         >
             <View style={styles.container}>
                 {/* Restaurant Image */}

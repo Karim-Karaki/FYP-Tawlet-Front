@@ -17,13 +17,17 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function RestaurantPage() {
+
   const navigation = useNavigation();
 
   const [restaurant, setRestaurant] = useState(null);
   const [restaurantReviewStats, setRestaurantReviewStats] = useState(null);
   const [restaurantImage, setRestaurantImage] = useState(null);
   const [restaurantReviews, setRestaurantReviews] = useState(null);
-  const restaurantId = "65f8162ebc60f80b378893f1";
+
+  const route = useRoute();
+  const {restaurantId} = route.params;
+  // const restaurantId = "65f8162ebc60f80b378893f1";
 
   // Loading link in browser function
   loadInBrowser = (restaurantMenuLink) => {
@@ -57,7 +61,6 @@ export default function RestaurantPage() {
         setRestaurant(response.data);
         setRestaurantImage(restaurantConst.image);
       } catch (error) {
-        // TODO check if weird relating to adding one more line for apiurl to work without cashed version
         console.error(error);
       }
     };
@@ -147,7 +150,7 @@ export default function RestaurantPage() {
           </Pressable>
           {/* Rating nb */}
           <Text style={styles.ratingNumber}>
-            {restaurantReviewStats ? restaurantReviewStats.averageRating : "Error"}
+            {restaurantReviewStats ? (restaurantReviewStats.averageRating !== null ? restaurantReviewStats.averageRating : 0) : "Error"}
           </Text>
           {/* Rating stars */}
           <View>
@@ -170,9 +173,6 @@ export default function RestaurantPage() {
               () => navigation.navigate('ReviewsPage',{
                 restaurantReviews: restaurantReviews,
               })
-              // () => router.replace("/main/ReviewsPage",{
-              //   restaurantReviews: restaurantReviews,
-              // })
             }
             >
             <Icon name="chevron-right" style={styles.viewAllText}/>
