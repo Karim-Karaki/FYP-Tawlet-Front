@@ -1,7 +1,7 @@
 import {View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
-import { categories, sorties } from '../../constants/constants';
+import { sorties } from '../../constants/constants';
 
 export default function Sorties() {
     return (
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
         
     },
     image: {
-        width:50,
-        height:50
+        width:40,
+        height:40
     },
     text: {
         fontSize: 14,

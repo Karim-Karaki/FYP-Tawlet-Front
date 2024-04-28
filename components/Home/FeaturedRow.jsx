@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet, TouchableOpacity} from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Image} from "react-native"
 import React from 'react'
 import { ScrollView } from "react-native-gesture-handler"
 import RestaurantCard from "../RestaurantCard"
 
-export default function FeaturedRow({title, description, restaurants}) {
+export default function FeaturedRow({title, description, restaurants, images, ratings}) {
     return (
         <View>
             <View style={styles.container}>
@@ -32,8 +32,11 @@ export default function FeaturedRow({title, description, restaurants}) {
                                 <RestaurantCard
                                     item = {restaurant}
                                     key = {index}
-                                    width = {270}
+                                    width = {300}
+                                    height = {144}
                                     style={{marginRight: 20}}
+                                    image = {images[index]}
+                                    rating={ratings[index]}
                                 />
                             </View>
                         )
@@ -54,7 +57,7 @@ const styles = StyleSheet.create({
         paddingRight: 20,
     },
     title: {
-        fontSize: 18,
+        fontSize: 25,
         lineHeight: 24,
         fontWeight: "bold",
     },

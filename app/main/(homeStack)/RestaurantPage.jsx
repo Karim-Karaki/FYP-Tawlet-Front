@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import ReviewComponent from '../../../components/SingularReview';
 import { useNavigation } from 'expo-router';
 import { useRoute } from '@react-navigation/native';
+import { restaurantImages} from '../../../constants/constants';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -59,7 +60,7 @@ export default function RestaurantPage() {
       try {
         const response = await axios.get(`${API_URL}/restaurants/${restaurantId}`);
         setRestaurant(response.data);
-        setRestaurantImage(restaurantConst.image);
+        setRestaurantImage(restaurantImages[3]);
       } catch (error) {
         console.error(error);
       }
@@ -193,7 +194,7 @@ export default function RestaurantPage() {
           <ReviewComponent
             key={restaurantReviews[0]._id}
             review={restaurantReviews[0]}
-            reviewerName={"UserX"}
+            reviewerName={"User1"}
             tintColor={'#f2f2f2'}
           />
           )}
@@ -236,8 +237,11 @@ export default function RestaurantPage() {
         
         {/* Making it clickable */}
         <Pressable 
-            onPress={() => router.replace("/main/FloorMap")}
-            >
+            onPress={() => navigation.navigate('FloorMap',{openingHours: restaurant.openingHours,})}
+            // () => navigation.navigate('ReviewsPage',{
+            //   restaurantReviews: restaurantReviews,
+            // })
+          >
           <Image 
             style={styles.floorImage}
             source={floorMap}>

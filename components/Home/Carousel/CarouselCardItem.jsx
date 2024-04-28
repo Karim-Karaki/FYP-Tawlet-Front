@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native"
+import {carouselImages} from "../../../constants/constants.js"
 
 export const SLIDER_WIDTH = Dimensions.get('window').width
-export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.8)
-export const ITEM_HEIGHT = Math.round(Dimensions.get('window').height / 5)
+export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.9)
+export const ITEM_HEIGHT = Math.round(Dimensions.get('window').height / 4)
 
 const BORDER_RADIUS = 20
 
@@ -11,8 +12,9 @@ const CarouselCardItem = ({ item, index }) => {
   return (
     <View style={styles.container} key={index}>
       <Image
-        source={{ uri: item.imgUrl }}
+        source={carouselImages[index]}
         style={styles.image}
+        resizeMode='contain'
       />
       {/* <Text style={styles.header}>{item.title}</Text> */}
       {/* <Text style={styles.body}>{item.body}</Text> */}
@@ -25,6 +27,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'white',
       borderRadius: 8,
       width: ITEM_WIDTH,
+      height: ITEM_HEIGHT,
       // paddingBottom: 40,
       shadowColor: "#000",
       shadowOffset: {
@@ -37,8 +40,11 @@ const styles = StyleSheet.create({
       borderRadius: BORDER_RADIUS,
     },
     image: {
-      width: ITEM_WIDTH,
-      height: ITEM_HEIGHT,
+      flex:1 ,
+      width: undefined,
+      height: undefined,
+      // width: ITEM_WIDTH,
+      // height: ITEM_HEIGHT,
       borderRadius: BORDER_RADIUS,
     },
     header: {

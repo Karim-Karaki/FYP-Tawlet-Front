@@ -22,10 +22,12 @@ export default function Categories() {
                     renderItem={({ item }) => (
                         <View style={styles.content_container_style}>
                             <TouchableOpacity style={styles.touchable}>
-                                <Image style={styles.image}
-                                    source={item.image}
-                                />
-                                <Text style={styles.text}>{item.name}</Text>
+                                <View style={styles.test}>
+                                  <Image style={styles.image}
+                                     source={item.image}
+                                  />
+                                  <Text style={styles.text}>{item.name}</Text>
+                                </View>
                             </TouchableOpacity>
                         </View>
                     )}
@@ -40,16 +42,22 @@ const styles = StyleSheet.create({
     shows_horizontal_scrollView: {
         overflow: "visible",
     },
+    test:{
+        alignItems: "center",
+        paddingRight: 0,
+        paddingVertical: 10,
+    },
     content_container_style: {
         flex: 1,
-        paddingHorizontal: 15,
-        paddingVertical: 10,
+        paddingHorizontal: 8,
+        // paddingVertical: 5,
         marginRight: 0,
         width: 102,
     },
     touchable: {
         backgroundColor: "white",
-        padding: 10,
+        marginVertical: 10,
+        // paddingHorizontal:10,
         justifyContent: "center",
         alignItems: "center",
         // marginRight: 10,
@@ -64,8 +72,8 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     image: {
-        width:40,
-        height:40,
+        width:50,
+        height:50,
     },
     text: {
         fontSize: 14,

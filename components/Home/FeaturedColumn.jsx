@@ -3,7 +3,7 @@ import React from 'react'
 import { ScrollView } from "react-native-gesture-handler"
 import RestaurantCard from "../RestaurantCard"
 
-export default function FeaturedColumn({title, description, restaurants}) {
+export default function FeaturedColumn({title, description, restaurants, images, ratings}) {
 
     return (
         <View>
@@ -33,6 +33,9 @@ export default function FeaturedColumn({title, description, restaurants}) {
                                 item = {restaurant}
                                 key = {index}
                                 width = {this.width}
+                                height = {200}
+                                image = {images[index]}
+                                rating={ratings[index]}
                             />
                         )
                     })
@@ -53,10 +56,11 @@ const styles = StyleSheet.create({
         paddingRight: 20,
     },
     title: {
-        fontSize: 18,
+        fontSize: 25,
         lineHeight: 24,
         fontWeight: "bold",
         bottom: 5,
+        marginTop: 20,
     },
     description: {
         fontSize: 12,
@@ -67,6 +71,7 @@ const styles = StyleSheet.create({
         color: "#FF6C44",
         fontWeight: "600",
         bottom: 5,
+        marginTop: 20,
     },
     scroll:{
         overflow: "visible",

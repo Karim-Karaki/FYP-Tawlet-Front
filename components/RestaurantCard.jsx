@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { router } from 'expo-router';
 import axios from 'axios';
 
-export default function RestaurantCard({item, width}) {
+export default function RestaurantCard({item, width,height, image, rating}) {
     
     // 403 FORBIDDEN ERROR
     // const [restaurantImage, setRestaurantImage] = useState(null);
@@ -26,17 +26,19 @@ export default function RestaurantCard({item, width}) {
     const navigation = useNavigation();
     return (
         <TouchableWithoutFeedback 
-        // onPress={() => router.replace("/main/RestaurantPage")}
+        // onPress={() => console.log(image)}
         onPress={() => navigation.navigate('RestaurantPage', {restaurantId: item._id})}
         >
             <View style={styles.container}>
                 {/* Restaurant Image */}
                 <Image 
-                    source={item.image} 
-                    style={{width: width,
-                            height: 144,
-                            borderTopLeftRadius: 20,
-                            borderTopRightRadius: 20,}} 
+                    source={image} 
+                    style={{
+                        width: width,
+                        height: height,
+                        borderTopLeftRadius: 20,
+                        borderTopRightRadius: 20,
+                    }} 
                 />
                 <View style={styles.textContainer}> 
 
@@ -50,7 +52,7 @@ export default function RestaurantCard({item, width}) {
                             {/* <Text styles={{color: "green"}}>{item.stars}</Text> */}
 
                             {/* Number of reviews / Type*/}
-                            <Text styles={{color: "gray"}}> ({item.reviews} review) - <Text style={{fontWeight:600}}>{item.sortieType}</Text>
+                            <Text styles={{color: "gray"}}> {rating} - <Text style={{fontWeight:600}}>{item.sortieType}</Text>
                             </Text>     
                         </Text>
                         
@@ -79,17 +81,19 @@ export default function RestaurantCard({item, width}) {
 const styles = StyleSheet.create({
     container: {
         //TODO FIX SHADOW
-        marginBottom: 20,
+        marginBottom: 35,
         borderRadius: 24,
         backgroundColor: "white",
-        shadowColor: "#ffffe6",
+        shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 10,
+            height: 2,
         },
-        shadowOpacity: 0.1,
-        shadowRadius: 7,
-        // elevation: 20,
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        
+        elevation: 5,
+
     },
     image: {
         height: 144,

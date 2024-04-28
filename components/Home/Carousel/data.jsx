@@ -2,7 +2,7 @@ const data = [
     {
       title: "Aenean leo",
       body: "Ut tincidunt tincidunt erat. Sed cursus turpis vitae tortor. Quisque malesuada placerat nisl. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.",
-      imgUrl: "https://picsum.photos/id/11/200/300",
+      imgUrl: '../../../assets/images/restaurant1.jpg',
     },
     {
       title: "In turpis",

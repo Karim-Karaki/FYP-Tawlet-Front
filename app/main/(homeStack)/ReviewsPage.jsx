@@ -22,7 +22,7 @@ export default function ReviewPage({ route }){
                 <ReviewComponent
                 key = {index}
                 review={review}
-                reviewerName={"UserX"+" "}
+                reviewerName={"User" + index}
                 tintColor={'white'}
                 />
             </View>

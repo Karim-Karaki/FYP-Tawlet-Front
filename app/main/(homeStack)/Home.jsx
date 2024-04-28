@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {
-  Text,
-  BackHandler,
-  Alert,
-  View,
   Button,
+  View,
   StyleSheet,
-  Dimensions,
   ScrollView,
+  Image
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomHeader from "../../../components/CustomHeader";
@@ -20,10 +17,12 @@ import {colors, featured} from "../../../constants/constants.js";
 import Categories from "../../../components/Home/Categories.jsx";
 import { API_URL } from "@env";
 import axios from 'axios';
+import {restaurantImages, ratings} from "../../../constants/constants.js";
 
 export default function Page(){
 
   const [restaurants, setRestaurants] = useState(null);
+  const [offersRestaurants, setOffersRestaurants] = useState(null);
 
   useEffect(() => {
 
@@ -31,6 +30,7 @@ export default function Page(){
       try {
         const response = await axios.get(`${API_URL}/restaurants/`);
         setRestaurants(response.data);
+        setOffersRestaurants(response.data.slice(8,11));
       } catch (error) {
         console.error(error);
       }
@@ -44,10 +44,7 @@ export default function Page(){
     // Top of page includes location button and news feed
     <SafeAreaView style={styles.container}>
       <CustomHeader />
-      
-      <Button 
-        title="Test" 
-        onPress={()=>console.log(restaurants)}>TEST</Button>
+      {/* <Button title={"UIAS"} onPress={()=>console.log(restaurantImages)}/> */}
 
       {/* main */}
       <ScrollView
@@ -62,25 +59,27 @@ export default function Page(){
         {/* featured */}
         <View style={styles.featured}>
           {
-            restaurants !== null &&  [featured].map((item, index) => {
+            offersRestaurants !== null &&  [featured].map((item, index) => {
               return (
                 <FeaturedRow
                   key={index}
                   title={item.title}
-                  restaurants={item.restaurants}
+                  restaurants={offersRestaurants}
                   description={item.description}
+                  images = {restaurantImages.slice(8,11)}
+                  ratings = {ratings.slice(8,11)}
                 />
               )
             }) 
           }
         {/* black line */}
-        <View style={{flex: 1, height: 10, backgroundColor: 'gray'}} /></View>
+        <View style={{flex: 1, height: 5, backgroundColor: '#D0D0D0'}} /></View>
         
         {/* sortie type */}
         <Sorties />
 
         {/* black line */}
-        <View style={{flex: 1, height: 10, backgroundColor: 'gray'}}></View>
+        <View style={{flex: 1, height: 5, backgroundColor: '#D0D0D0'}}></View>
         
         {/* recommendations */}
         <View style={styles.featured}>
@@ -92,6 +91,8 @@ export default function Page(){
                   title={"HELLO"}
                   restaurants={restaurants}
                   description={item.description}
+                  images = {restaurantImages}
+                  ratings = {ratings}
                 />
               )
             })

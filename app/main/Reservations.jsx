@@ -8,27 +8,27 @@ const Page = () => {
 
   const reservations = [
     {
-      restaurant: "Restaurant1", 
-      date: "2021-10-10", 
-      time: "19:00", 
+      restaurant: "Best Burgers", 
+      date: "2024-4-29", 
+      time: "8:00 PM", 
       table: 3,
       guests: 2,
       logo: require('../../assets/images/logo1.jpg')
     },
     {
-      restaurant: "Restaurant2", 
-      date: "2021-10-10", 
-      time: "19:00", 
+      restaurant: "Sunset Grill", 
+      date: "2024-4-31", 
+      time: "10:00 PM", 
       table: 3,
-      guests: 2,
+      guests: 4,
       logo: require('../../assets/images/logo2.jpg')
     },
     {
-      restaurant: "Restaurant3", 
-      date: "2021-10-10", 
-      time: "19:00", 
+      restaurant: "Bella Italia", 
+      date: "2024-5-2", 
+      time: "4:00 PM", 
       table: 3,
-      guests: 2,
+      guests: 3,
       logo: require('../../assets/images/logo3.jpg')
     },
 

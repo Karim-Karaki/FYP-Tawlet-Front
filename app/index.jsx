@@ -12,6 +12,7 @@ import StyledText from "../components/StyledText.jsx";
 import StyledButton from "../components/StyledButton.jsx";
 import { useRouter } from "expo-router";
 
+
 const Page = () => {
   const router = useRouter();
 
@@ -24,7 +25,7 @@ const Page = () => {
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={{ uri: "https://placehold.co/400x600.png" }}
+          source={require('../assets/images/Logo.jpg')}
         />
       </View>
 

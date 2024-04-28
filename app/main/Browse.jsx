@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
-import { Text, View, StyleSheet, Pressable, Dimensions, Image } from 'react-native'
+import React, {useState, useEffect} from 'react';
+import { Text, View, StyleSheet, Pressable, Dimensions, Image, Button } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { SearchBar } from '@rneui/themed';
+import axios from 'axios';
+import { API_URL } from "@env";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -10,10 +12,27 @@ const windowHeight = Dimensions.get('window').height;
 const Page = () => {
 
   const [ search, setSearch ] = useState("");
+  const [restaurants, setRestaurants] = useState(null);
 
   updateSearch = (search) => {
     setSearch({ search });
   };
+
+  
+  // useEffect(() => {
+  //   const fetchRestaurantsByCuisine = async () => {
+  //     try {
+  //       const response = await axios.get(`${API_URL}/restaurants/cuisine/Pasta`);
+  //       setRestaurants(response.data);
+  //       console.log("TEST", response.data)
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchRestaurantsByCuisine();
+
+  // }, []);
 
   const categories = [
     {
@@ -53,6 +72,10 @@ const Page = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* <Button 
+        title="Test" 
+        onPress={()=>console.log(restaurants)}>TEST
+      </Button> */}
       <SearchBar
         placeholder="Type Here..."
         onChangeText={this.updateSearch}
@@ -74,37 +97,49 @@ const Page = () => {
         showCancel={true}
         // showLoading={true}
       />
-      <Text style={styles.groupsTitle}>Groups</Text>
-      <View style={{alignContent:"center"}}>
-            <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                className="horizontalScrollView"
-                contentContainerStyle={styles.shows_horizontal_scrollView}
-            >
-                <FlatList
-                    contentContainerStyle={{alignSelf: 'flex-start'}}
-                    numColumns={2}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    data={categories}
-                    renderItem={({ item, index }) => (
-                      <View>
-                        <View style={[styles.imageContainer, {shadowColor: shadowColors[index%shadowColors.length]}]}>
-                          <Pressable style={styles.touchable} >
-                              <Image 
-                                source={item.image}
-                                style={styles.image}
-                              />
-                          </Pressable>
+      
+      {restaurants === null && (
+        <View>
+        <Text style={styles.groupsTitle}>Groups</Text>
+        <View style={{alignContent:"center"}}>
+              <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  className="horizontalScrollView"
+                  contentContainerStyle={styles.shows_horizontal_scrollView}
+              >
+                {/* TODO SEARCH IF API FOR IT IS DONE */}
+               
+                  <FlatList
+                      contentContainerStyle={{alignSelf: 'flex-start'}}
+                      numColumns={2}
+                      showsHorizontalScrollIndicator={false}
+                      showsVerticalScrollIndicator={false}
+                      data={categories}
+                      renderItem={({ item, index }) => (
+                        <View>
+                          <View style={[styles.imageContainer, {shadowColor: shadowColors[index%shadowColors.length]}]}>
+                            <Pressable style={styles.touchable} >
+                                <Image 
+                                  source={item.image}
+                                  style={styles.image}
+                                />
+                            </Pressable>
+                          </View>
+                          <Text style={styles.text}>{item.name}</Text>
                         </View>
-                        <Text style={styles.text}>{item.name}</Text>
-                      </View>
-                    )}
-                    keyExtractor={(item) => item.id}
-                />
+                      )}
+                      keyExtractor={(item) => item.id}
+                  />
+               
             </ScrollView>
-        </View>
+            </View>
+          </View>
+          )}
+      {restaurants !== null && (
+              <Text>No restaurants available</Text>
+        )
+      }
     </SafeAreaView>
     
   )
